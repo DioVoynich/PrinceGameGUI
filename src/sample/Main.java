@@ -3,15 +3,18 @@ package sample;
 import java.io.*;
 import java.util.*;
 
+import javafx.beans.InvalidationListener;
+import javafx.beans.Observable;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.fxml.FXML;
 import javafx.scene.control.Button;
-
+import javafx.application.Application;
 
 import javafx.scene.control.Label;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.StackPane;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.*;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaView;
@@ -28,6 +31,8 @@ import javafx.scene.Scene;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 
+import javafx.scene.control.Slider;
+import javafx.scene.control.Button;
 
 import javafx.geometry.Rectangle2D;
 import javafx.stage.Screen;
@@ -40,6 +45,7 @@ public class Main extends Application {
     private makeImage picture;
     private Rectangle2D primaryScreenBounds;
     private AudioClip currentPlay;
+    @FXML private Slider volumeSlider;
 
     private void playSong(Random rand) {
         int rVal = rand.nextInt(13) + 3;
@@ -87,6 +93,8 @@ public class Main extends Application {
         // Button for first page.
         HBox layoutPlaying = new HBox(15);
         layoutPlaying.getChildren().addAll(labels, goBack, options);
+        layoutPlaying.setTranslateX(1300);
+        layoutPlaying.setTranslateY(800);
 
         // Store them buttons and images together.
         Group playGroup = new Group(imageView, layoutPlaying);
@@ -132,6 +140,8 @@ public class Main extends Application {
         // Button for first page.
         HBox layoutCredit = new HBox(15);
         layoutCredit.getChildren().addAll(labelCredits, goBack);
+        layoutCredit.setTranslateX(1400);
+        layoutCredit.setTranslateY(750);
 
         // Store them buttons and images together.
         Group creditGroup = new Group(imageView, layoutCredit);
@@ -146,6 +156,24 @@ public class Main extends Application {
         currentPlay = new AudioClip(media.getSource());
         currentPlay.setCycleCount(MediaPlayer.INDEFINITE);
         currentPlay.play();
+
+
+        // Volume Control
+        volumeSlider.setValue(currentPlay.getVolume() * 100);
+        volumeSlider.valueProperty().addListener(new InvalidationListener() {
+            @Override
+            public void invalidated(Observable observable) {
+                currentPlay.setVolume(volumeSlider.getValue() / 100);
+            }
+        });
+
+        HBox temp = new HBox();
+        temp.getChildren().addAll(volumeSlider);
+        temp.setTranslateX(850);
+        temp.setTranslateY(410);
+        volumeSlider.setMinWidth(300);
+
+
 
         Image image = new Image(new File("E:\\All Computer Science Materials\\" +
                 "Java 240 Project\\PrinceFX\\image\\" + picture.getImage(2) + ".png").toURI().toString());
@@ -172,10 +200,15 @@ public class Main extends Application {
             }
         });
 
-        // Button for first page.
-        HBox layoutOp= new HBox(15);
+        // Button to the main page.
+        HBox layoutOp = new HBox(15);
         layoutOp.getChildren().addAll(labelOption, goBack);
-        Group gOption = new Group(imageView, layoutOp);
+
+        // Button coordinate.
+        layoutOp.setTranslateX(1400);
+        layoutOp.setTranslateY(750);
+
+        Group gOption = new Group(imageView, layoutOp, temp);
         return new Scene(gOption, 200, 200);
     }
 
@@ -209,6 +242,7 @@ public class Main extends Application {
         Button options = new Button("Options");
         Button credits = new Button("Credits");
         Button quitting = new Button("Quit");
+
         // This will lead to the playing scene.
         loading.setOnAction(new EventHandler<ActionEvent>() {
             @Override
@@ -249,6 +283,10 @@ public class Main extends Application {
         VBox layoutNewGame = new VBox(15);
         layoutNewGame.getChildren().addAll(label1, start, loading, options, credits, quitting);
 
+        // Moving to the right coordinate.
+        layoutNewGame.setTranslateX(1300);
+        layoutNewGame.setTranslateY(520);
+
         // Store them buttons and images together.
         Group gOne = new Group(imageView, layoutNewGame);
         return new Scene(gOne, 200, 200);
@@ -258,6 +296,7 @@ public class Main extends Application {
     public void start(Stage primaryStage) throws Exception{
         Parent root = FXMLLoader.load(getClass().getResource("sample.fxml"));
         stageOne = primaryStage;
+        volumeSlider = new Slider();
 
         // There are 17 songs. Begins from index of 0 to 16.
         // 0 - 7: Normal, 8 - 11 crusade songs, 12 - 16 dark era songs.
