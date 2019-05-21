@@ -10,8 +10,10 @@ import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.application.Application;
+import javafx.scene.layout.BorderPane;
 
 import javafx.scene.control.Label;
 import javafx.scene.layout.*;
@@ -23,6 +25,8 @@ import javafx.scene.media.AudioClip;
 
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+
+import javafx.geometry.Insets;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -44,17 +48,20 @@ public class Main extends Application {
     private createAudio songs;
     private makeImage picture;
     private Rectangle2D primaryScreenBounds;
-    private AudioClip currentPlay;
-    @FXML private Slider volumeSlider;
+    private MediaPlayer musicPlay;
+    private MediaView mView;
+    private Slider volumeSlider;
+    private double currentVolume;
 
     private void playSong(Random rand) {
         int rVal = rand.nextInt(13) + 3;
         String path = "E:\\All Computer Science Materials\\Java 240 Project\\PrinceFX\\Music\\"
                 + songs.getSong(rVal) + ".mp3";
         Media media = new Media(new File(path).toURI().toString());
-        currentPlay = new AudioClip(media.getSource());
-        currentPlay.setCycleCount(MediaPlayer.INDEFINITE);
-        currentPlay.play();
+        musicPlay = new MediaPlayer(media);
+        mView.setMediaPlayer(musicPlay);
+        musicPlay.setCycleCount(MediaPlayer.INDEFINITE);
+        musicPlay.play();
     }
 
     // This is the main part of the program. It will scan files from
@@ -84,7 +91,7 @@ public class Main extends Application {
         goBack.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                currentPlay.stop();
+                musicPlay.stop();
                 sceneStart = createStartScene();
                 stageOne.setScene(sceneStart);
             }
@@ -93,8 +100,8 @@ public class Main extends Application {
         // Button for first page.
         HBox layoutPlaying = new HBox(15);
         layoutPlaying.getChildren().addAll(labels, goBack, options);
-        layoutPlaying.setTranslateX(1300);
-        layoutPlaying.setTranslateY(800);
+        layoutPlaying.setTranslateX(1250);
+        layoutPlaying.setTranslateY(750);
 
         // Store them buttons and images together.
         Group playGroup = new Group(imageView, layoutPlaying);
@@ -107,9 +114,10 @@ public class Main extends Application {
         String path = "E:\\All Computer Science Materials\\Java 240 Project\\PrinceFX\\Music\\"
                 + songs.getSong(2) + ".mp3";
         Media media = new Media(new File(path).toURI().toString());
-        currentPlay = new AudioClip(media.getSource());
-        currentPlay.setCycleCount(MediaPlayer.INDEFINITE);
-        currentPlay.play();
+        musicPlay = new MediaPlayer(media);
+        mView.setMediaPlayer(musicPlay);
+        musicPlay.setCycleCount(MediaPlayer.INDEFINITE);
+        musicPlay.play();
 
         //Creating an image
         Image image = new Image(new File("E:\\All Computer Science Materials\\" +
@@ -131,16 +139,16 @@ public class Main extends Application {
         goBack.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                currentPlay.stop();
+                musicPlay.stop();
                 sceneStart = createStartScene();
                 stageOne.setScene(sceneStart);
             }
         });
 
         // Button for first page.
-        HBox layoutCredit = new HBox(15);
+        HBox layoutCredit = new HBox();
         layoutCredit.getChildren().addAll(labelCredits, goBack);
-        layoutCredit.setTranslateX(1400);
+        layoutCredit.setTranslateX(1350);
         layoutCredit.setTranslateY(750);
 
         // Store them buttons and images together.
@@ -153,27 +161,35 @@ public class Main extends Application {
         String path = "E:\\All Computer Science Materials\\Java 240 Project\\PrinceFX\\Music\\"
                 + songs.getSong(1) + ".mp3";
         Media media = new Media(new File(path).toURI().toString());
-        currentPlay = new AudioClip(media.getSource());
-        currentPlay.setCycleCount(MediaPlayer.INDEFINITE);
-        currentPlay.play();
+        musicPlay = new MediaPlayer(media);
+        mView.setMediaPlayer(musicPlay);
+        musicPlay.setCycleCount(MediaPlayer.INDEFINITE);
+        musicPlay.play();
 
 
         // Volume Control
-        volumeSlider.setValue(currentPlay.getVolume() * 100);
+        volumeSlider.setValue(musicPlay.getVolume() * 100); // 1.0 = max 0.0 = min
         volumeSlider.valueProperty().addListener(new InvalidationListener() {
             @Override
             public void invalidated(Observable observable) {
-                currentPlay.setVolume(volumeSlider.getValue() / 100);
+                currentVolume = volumeSlider.getValue() / 100;
+                musicPlay.setVolume(currentVolume);
             }
         });
 
-        HBox temp = new HBox();
+        // This is only for the test purpose. It can be substituted to the existing volume slider.
+//        volumeSlider.valueChangingProperty().addListener(new ChangeListener<Boolean>() {
+//            @Override
+//            public void changed(ObservableValue<? extends Boolean> observableValue, Boolean aBoolean, Boolean t1) {
+//                musicPlay.setVolume(volumeSlider.getValue() / 100);
+//            }
+//        });
+
+        HBox temp = new HBox(15);
         temp.getChildren().addAll(volumeSlider);
         temp.setTranslateX(850);
         temp.setTranslateY(410);
         volumeSlider.setMinWidth(300);
-
-
 
         Image image = new Image(new File("E:\\All Computer Science Materials\\" +
                 "Java 240 Project\\PrinceFX\\image\\" + picture.getImage(2) + ".png").toURI().toString());
@@ -194,15 +210,15 @@ public class Main extends Application {
         goBack.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                currentPlay.stop();
+                musicPlay.stop();
                 sceneStart = createStartScene();
                 stageOne.setScene(sceneStart);
             }
         });
 
-        // Button to the main page.
-        HBox layoutOp = new HBox(15);
-        layoutOp.getChildren().addAll(labelOption, goBack);
+//        // Button to the main page.
+        HBox layoutOp = new HBox();
+        layoutOp.getChildren().add(goBack);
 
         // Button coordinate.
         layoutOp.setTranslateX(1400);
@@ -217,9 +233,10 @@ public class Main extends Application {
         String path = "E:\\All Computer Science Materials\\Java 240 Project\\PrinceFX\\Music\\"
                 + songs.getSong(0) + ".mp3";
         Media media = new Media(new File(path).toURI().toString());
-        currentPlay = new AudioClip(media.getSource());
-        currentPlay.setCycleCount(MediaPlayer.INDEFINITE);
-        currentPlay.play();
+        musicPlay = new MediaPlayer(media);
+        mView.setMediaPlayer(musicPlay);
+        musicPlay.setCycleCount(MediaPlayer.INDEFINITE);
+        musicPlay.play();
 
         //Creating an image
         Image image = new Image(new File("E:\\All Computer Science Materials\\" +
@@ -248,7 +265,7 @@ public class Main extends Application {
             @Override
             public void handle(ActionEvent event) {
                 // Creating the scene inside a event handler.
-                currentPlay.stop();
+                musicPlay.stop();
                 scenePlay = createPlayingScene();
                 stageOne.setScene(scenePlay);
             }
@@ -259,7 +276,7 @@ public class Main extends Application {
             @Override
             public void handle(ActionEvent event) {
                 // Creating the scene inside a event handler.
-                currentPlay.stop();
+                musicPlay.stop();
                 sceneOption = createOptionScene();
                 stageOne.setScene(sceneOption);
             }
@@ -270,7 +287,7 @@ public class Main extends Application {
             @Override
             public void handle(ActionEvent event) {
                 // Creating the scene inside a event handler.
-                currentPlay.stop();
+                musicPlay.stop();
                 sceneCredit = createCreditScene();
                 stageOne.setScene(sceneCredit);
             }
@@ -286,6 +303,7 @@ public class Main extends Application {
         // Moving to the right coordinate.
         layoutNewGame.setTranslateX(1300);
         layoutNewGame.setTranslateY(520);
+        //layoutNewGame.setPadding(new Insets(0, 20, 10, 20));
 
         // Store them buttons and images together.
         Group gOne = new Group(imageView, layoutNewGame);
@@ -297,6 +315,7 @@ public class Main extends Application {
         Parent root = FXMLLoader.load(getClass().getResource("sample.fxml"));
         stageOne = primaryStage;
         volumeSlider = new Slider();
+        mView = new MediaView();
 
         // There are 17 songs. Begins from index of 0 to 16.
         // 0 - 7: Normal, 8 - 11 crusade songs, 12 - 16 dark era songs.
@@ -318,7 +337,7 @@ public class Main extends Application {
         sceneStart = createStartScene();
 
         stageOne.setScene(sceneStart);
-        stageOne.setTitle("Prince Game ver 2.0.4.c");
+        stageOne.setTitle("Prince Game ver 3.0.2.b");
         stageOne.show();
     }
 
