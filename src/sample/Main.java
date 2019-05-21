@@ -52,16 +52,26 @@ public class Main extends Application {
     private MediaView mView;
     private Slider volumeSlider;
     private double currentVolume;
+    private int songChooser;
 
+    // This method will accept a random object as a parameter.
+    // It is designed to play random songs multiple times.
     private void playSong(Random rand) {
-        int rVal = rand.nextInt(13) + 3;
+        int rVal = rand.nextInt(15) + 3;
         String path = "E:\\All Computer Science Materials\\Java 240 Project\\PrinceFX\\Music\\"
                 + songs.getSong(rVal) + ".mp3";
         Media media = new Media(new File(path).toURI().toString());
         musicPlay = new MediaPlayer(media);
         mView.setMediaPlayer(musicPlay);
-        musicPlay.setCycleCount(MediaPlayer.INDEFINITE);
         musicPlay.play();
+
+        // Recursively playing the music.
+        musicPlay.setOnEndOfMedia(new Runnable() {
+            @Override
+            public void run() {
+                playSong(rand);
+            }
+        });
     }
 
     // This is the main part of the program. It will scan files from
@@ -93,6 +103,7 @@ public class Main extends Application {
             public void handle(ActionEvent event) {
                 musicPlay.stop();
                 sceneStart = createStartScene();
+                musicPlay.setVolume(currentVolume);
                 stageOne.setScene(sceneStart);
             }
         });
@@ -141,6 +152,7 @@ public class Main extends Application {
             public void handle(ActionEvent event) {
                 musicPlay.stop();
                 sceneStart = createStartScene();
+                musicPlay.setVolume(currentVolume);
                 stageOne.setScene(sceneStart);
             }
         });
@@ -166,9 +178,7 @@ public class Main extends Application {
         musicPlay.setCycleCount(MediaPlayer.INDEFINITE);
         musicPlay.play();
 
-
         // Volume Control
-        volumeSlider.setValue(musicPlay.getVolume() * 100); // 1.0 = max 0.0 = min
         volumeSlider.valueProperty().addListener(new InvalidationListener() {
             @Override
             public void invalidated(Observable observable) {
@@ -205,18 +215,19 @@ public class Main extends Application {
         //Setting the preserve ratio of the image view
         imageView.setPreserveRatio(true);
 
-        Label labelOption = new Label();
+
         Button goBack = new Button("Go Back to Main");
         goBack.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
                 musicPlay.stop();
                 sceneStart = createStartScene();
+                musicPlay.setVolume(currentVolume);
                 stageOne.setScene(sceneStart);
             }
         });
 
-//        // Button to the main page.
+        // Button to the main page.
         HBox layoutOp = new HBox();
         layoutOp.getChildren().add(goBack);
 
@@ -238,7 +249,13 @@ public class Main extends Application {
         musicPlay.setCycleCount(MediaPlayer.INDEFINITE);
         musicPlay.play();
 
-        //Creating an image
+        // This is for the initialization.
+        if (currentVolume < 0) {
+            currentVolume = musicPlay.getVolume() * 100;
+            volumeSlider.setValue(currentVolume); // 1.0 = max 0.0 = min
+        }
+
+        //Creating an image from the image file.
         Image image = new Image(new File("E:\\All Computer Science Materials\\" +
                 "Java 240 Project\\PrinceFX\\image\\" + picture.getImage(0) + ".png").toURI().toString());
         //Setting the image view
@@ -253,7 +270,8 @@ public class Main extends Application {
         //Setting the preserve ratio of the image view
         imageView.setPreserveRatio(true);
 
-        Label label1 = new Label();
+        Label label1 = new Label("© 2019 Prince Game, CS 240");
+        label1.setStyle("-fx-font: 15 arial;");
         Button start = new Button("New Game");
         Button loading = new Button("Load Game");
         Button options = new Button("Options");
@@ -267,6 +285,7 @@ public class Main extends Application {
                 // Creating the scene inside a event handler.
                 musicPlay.stop();
                 scenePlay = createPlayingScene();
+                musicPlay.setVolume(currentVolume);
                 stageOne.setScene(scenePlay);
             }
         });
@@ -278,6 +297,7 @@ public class Main extends Application {
                 // Creating the scene inside a event handler.
                 musicPlay.stop();
                 sceneOption = createOptionScene();
+                musicPlay.setVolume(currentVolume);
                 stageOne.setScene(sceneOption);
             }
         });
@@ -289,6 +309,7 @@ public class Main extends Application {
                 // Creating the scene inside a event handler.
                 musicPlay.stop();
                 sceneCredit = createCreditScene();
+                musicPlay.setVolume(currentVolume);
                 stageOne.setScene(sceneCredit);
             }
         });
@@ -297,8 +318,8 @@ public class Main extends Application {
         quitting.setOnAction(e -> stageOne.close());
 
         // Button for first page.
-        VBox layoutNewGame = new VBox(15);
-        layoutNewGame.getChildren().addAll(label1, start, loading, options, credits, quitting);
+        VBox layoutNewGame = new VBox(20);
+        layoutNewGame.getChildren().addAll(start, loading, options, credits, quitting, label1);
 
         // Moving to the right coordinate.
         layoutNewGame.setTranslateX(1300);
@@ -316,9 +337,12 @@ public class Main extends Application {
         stageOne = primaryStage;
         volumeSlider = new Slider();
         mView = new MediaView();
-
-        // There are 17 songs. Begins from index of 0 to 16.
-        // 0 - 7: Normal, 8 - 11 crusade songs, 12 - 16 dark era songs.
+        // default value for the music volume.
+        currentVolume = -1;
+        // default song range.
+        songChooser = 5;
+        // There are 19 songs. Begins from index of 0 to 18.
+        // 0 - 7: Normal, 8 - 13 crusade songs, 14 - 18 dark era songs.
         songs = new createAudio();
 
         // There are only 2 images.
