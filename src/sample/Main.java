@@ -84,7 +84,7 @@ public class Main extends Application {
         //Setting the preserve ratio of the image view
         imageView.setPreserveRatio(true);
 
-        // All the buttons.
+        // All the buttons. Only Two though.
         Label labels = new Label();
         Button goBack = new Button("Save and Go Back to Main");
         Button options = new Button("Options");
