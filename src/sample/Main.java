@@ -40,7 +40,7 @@ import javafx.geometry.Rectangle2D;
 import javafx.stage.Screen;
 import javafx.scene.Group;
 
-// Try not to run this program with battery in save mode.
+// Try not to run this program with battery in save mode, it may cause temporary freezing.
 // Sometimes, start -> load may cause freezing for a short period, but everything is still
 // functional. Consider it as a memory overuse in any games.
 
@@ -60,7 +60,7 @@ public class Main extends Application {
     // It is designed to play random songs multiple times.
     private void playSong(Random rand) {
         // int rVal = rand.nextInt(songs.getSize() - songChooser) + songChooser;
-        int rVal = rand.nextInt(songs.getSize() - 3) + 2;
+        int rVal = rand.nextInt(15) + 3;
         String path = "E:\\All Computer Science Materials\\Java 240 Project\\PrinceFX\\Music\\"
                 + songs.getSong(rVal) + ".mp3";
         Media media = new Media(new File(path).toURI().toString());
@@ -217,7 +217,6 @@ public class Main extends Application {
         //Setting the preserve ratio of the image view
         imageView.setPreserveRatio(true);
 
-
         Button goBack = new Button("Go Back to Main");
         goBack.setOnAction(new EventHandler<ActionEvent>() {
             @Override
@@ -326,7 +325,6 @@ public class Main extends Application {
         // Moving to the right coordinate.
         layoutNewGame.setTranslateX(1300);
         layoutNewGame.setTranslateY(520);
-        //layoutNewGame.setPadding(new Insets(0, 20, 10, 20));
 
         // Store them buttons and images together.
         Group gOne = new Group(imageView, layoutNewGame);
