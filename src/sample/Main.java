@@ -99,7 +99,7 @@ public class Main extends Application {
 
         // All the buttons.
         Label labels = new Label();
-        Button goBack = new Button("Save and Go Back to Main");
+        Button goBack = new Button("Go Back to Main");
         // Button options = new Button("Options");
         goBack.setOnAction(new EventHandler<ActionEvent>() {
             @Override
@@ -148,7 +148,7 @@ public class Main extends Application {
         imageView.setPreserveRatio(true);
 
         Label labelCredits = new Label();
-        Button goBack = new Button("Save and Go Back to Main");
+        Button goBack = new Button("Back to Main");
         goBack.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
