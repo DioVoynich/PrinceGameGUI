@@ -77,6 +77,7 @@ public class Main extends Application {
         });
     }
 
+
     // This is the main part of the program. It will scan files from
     // prince game manager files.
     private Scene createPlayingScene() {
