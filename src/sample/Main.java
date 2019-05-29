@@ -13,6 +13,7 @@ import javafx.fxml.FXML;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.application.Application;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 
 import javafx.scene.control.Label;
@@ -47,7 +48,7 @@ import javafx.scene.Group;
 
 public class Main extends Application {
     private Stage stageOne;
-    private Scene sceneStart, scenePlay, sceneOption, sceneCredit;
+    private Scene sceneStart, scenePlay, sceneOption, sceneCredit, previous;
     private createAudio songs;
     private makeImage picture;
     private Rectangle2D primaryScreenBounds;
@@ -56,36 +57,44 @@ public class Main extends Application {
     private Slider volumeSlider;
     private double currentVolume;
     private int songChooser;
+    private GameManager gameControl;
+    private Effect update;
+    private Group princeAddon;
+    private Group lastResult;
+    private Random rand;
+    private Event changing;
+    private Decision[] options;
 
     // This method will accept a random object as a parameter.
-    private void playSong(Random rand) {
+    private void playSong() {
         // int rVal = rand.nextInt(songs.getSize() - songChooser) + songChooser;
-        int rVal = rand.nextInt(17) + 3;
+        int rVal = rand.nextInt(18) + 3;
         String path = "E:\\All Computer Science Materials\\Java 240 Project\\PrinceFX\\Music\\"
                 + songs.getSong(rVal) + ".mp3";
         Media media = new Media(new File(path).toURI().toString());
         musicPlay = new MediaPlayer(media);
         mView.setMediaPlayer(musicPlay);
+        musicPlay.setVolume(currentVolume);
         musicPlay.play();
 
         // Recursively playing the music.
         musicPlay.setOnEndOfMedia(new Runnable() {
             @Override
             public void run() {
-                playSong(rand);
+                playSong();
             }
         });
     }
 
-
     // This is the main part of the program. It will scan files from
     // prince game manager files.
     private Scene createPlayingScene() {
-        Random rand = new Random();
-        playSong(rand);
+        if (previous == sceneStart) {
+            playSong();
+        }
 
         Image image = new Image(new File("E:\\All Computer Science Materials\\" +
-                "Java 240 Project\\PrinceFX\\image\\" + picture.getImage(1) + ".png").toURI().toString());
+                "Java 240 Project\\PrinceFX\\image\\" + picture.getImage(5) + ".png").toURI().toString());
         //Setting the image view
         ImageView imageView = new ImageView(image);
 
@@ -102,10 +111,12 @@ public class Main extends Application {
         Label labels = new Label();
         Button goBack = new Button("Go Back to Main");
         // Button options = new Button("Options");
+
         goBack.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
                 musicPlay.stop();
+                gameControl.reset();
                 sceneStart = createStartScene();
                 musicPlay.setVolume(currentVolume);
                 stageOne.setScene(sceneStart);
@@ -115,12 +126,144 @@ public class Main extends Application {
         // Button for first page.
         HBox layoutPlaying = new HBox();
         layoutPlaying.getChildren().addAll(labels, goBack);
-        layoutPlaying.setTranslateX(1300);
-        layoutPlaying.setTranslateY(770);
+        layoutPlaying.setTranslateX(1350);
+        layoutPlaying.setTranslateY(750);
+
+        // Depending how many options left.
+        princeAddon = buildGame();
 
         // Store them buttons and images together.
-        Group playGroup = new Group(imageView, layoutPlaying);
+        Group playGroup = new Group(imageView, layoutPlaying, princeAddon);
         return new Scene(playGroup, 200, 200);
+    }
+
+    private Group buildGame() {
+        gameControl.setEvent(rand);
+        options = gameControl.currentEvent.getDecs();
+        Group variousStatus = printStatus(gameControl.currentEvent);
+
+        return variousStatus;
+    }
+
+    // This will printout all the game status.
+    private Group printStatus(Event event) {
+        // Name and Age
+        Label name = new Label("Prince Harry");
+        Label age = new Label("Age: " + gameControl.getStats().get("AGE"));
+        VBox identity = new VBox(10);
+        identity.getChildren().addAll(name, age);
+        identity.setStyle("-fx-font: 30 arial;");
+        identity.setTranslateX(60);
+        identity.setTranslateY(90);
+
+        // Year
+        Label year = new Label("Year: " + gameControl.getStats().get("YEAR") + " AD");
+        year.setStyle("-fx-font: 30 arial;");
+        year.setTranslateX(1250);
+        year.setTranslateY(90);
+
+        // Personal Status
+        Label wealth = new Label("Wealth: " + gameControl.getStats().get("WLTH"));
+        Label army = new Label("Army: " + gameControl.getStats().get("ARMY"));
+        Label health = new Label("Health: " + gameControl.getStats().get("HLTH"));
+        VBox personalStatus = new VBox(80);
+        personalStatus.getChildren().addAll(wealth, army, health);
+        personalStatus.setStyle("-fx-font: 40 arial;");
+        personalStatus.setTranslateX(30);
+        personalStatus.setTranslateY(300);
+
+        // Other Forces: clergy, nobility, commoners
+        HBox allForces = new HBox(120);
+        // Clergy status
+        Label clergy = new Label("Clergy: ");
+        clergy.setStyle("-fx-font: 40 arial;");
+        Label clergyLoyalty = new Label("Loyalty: " + gameControl.getStats().get("CLG_LOY"));
+        clergyLoyalty.setStyle("-fx-font: 24 arial;");
+        Label clergyInfluence = new Label("Influence: " + gameControl.getStats().get("CLG_INF"));
+        clergyInfluence.setStyle("-fx-font: 24 arial;");
+        VBox clergyGroup = new VBox();
+        clergyGroup.getChildren().addAll(clergy,  clergyInfluence, clergyLoyalty);
+
+        // Nobility status
+        Label nobility = new Label("Nobility: ");
+        nobility.setStyle("-fx-font: 40 arial;");
+        Label nobilityLoyalty = new Label("Loyalty: " + gameControl.getStats().get("NOB_LOY"));
+        nobilityLoyalty.setStyle("-fx-font: 24 arial;");
+        Label nobilityInfluence = new Label("Influence: " + gameControl.getStats().get("NOB_INF"));
+        nobilityInfluence.setStyle("-fx-font: 24 arial;");
+        VBox nobilityGroup = new VBox();
+        nobilityGroup.getChildren().addAll(nobility, nobilityInfluence, nobilityLoyalty);
+
+        // commoners status
+        Label commoners = new Label("Commoners: ");
+        commoners.setStyle("-fx-font: 40 arial;");
+        Label commonersLoyalty = new Label("Loyalty: " + gameControl.getStats().get("COM_LOY"));
+        commonersLoyalty.setStyle("-fx-font: 24 arial;");
+        Label commonersInfluence = new Label("Influence: " + gameControl.getStats().get("COM_INF"));
+        commonersInfluence.setStyle("-fx-font: 24 arial;");
+        VBox commonersGroup = new VBox();
+        commonersGroup.getChildren().addAll(commoners, commonersInfluence, commonersLoyalty);
+
+        allForces.getChildren().addAll(clergyGroup, nobilityGroup, commonersGroup);
+        allForces.setTranslateX(400);
+        allForces.setTranslateY(80);
+
+        // Printing the quest text
+        Group story = new Group();
+        VBox allOptions = new VBox(15);
+        allOptions.setStyle("-fx-font: 28 arial;");
+        allOptions.setTranslateX(500);
+        allOptions.setTranslateY(400);
+
+        if(event != null) {
+            story.getChildren().add(printParagraph(event.getTxt()));
+            for (int i = 0; i < 4; i++) {
+                if (event.getDecs()[i] == null) {
+                    break;
+                } else {
+                    Button temp = new Button(((i + 1) + "." + event.getDecs()[i].getTxt()));
+                    allOptions.getChildren().add(temp);
+                    temp.setOnAction(new EventHandler<ActionEvent>() {
+                        @Override
+                        public void handle(ActionEvent actionEvent) {
+                            if (gameControl.currentEvent.increasesYear()) {
+                                gameControl.increaseYear();
+                            }
+//                            if (!(gameControl.currentEvent.left == null || gameControl.currentEvent.right == null)) {
+//                                gameControl.currentEvent = gameControl.nextEvent(gameControl.currentEvent, in.nextInt(), rand);
+//                            }
+                            previous = null;
+                            scenePlay = createPlayingScene();
+                            musicPlay.setVolume(currentVolume);
+                            stageOne.setScene(scenePlay);
+                        }
+                    });
+                }
+            }
+        }
+
+        lastResult = new Group(identity, year, personalStatus, allForces, story, allOptions);
+        return lastResult;
+    }
+
+    // This will print out the current quest.
+    private Label printParagraph(String text) {
+        String[] para = text.split(" ");
+        String quest = "";
+        int txtLength = 50;
+        for (int i = 0; i < para.length; i++) {
+            if(para[i].length() > txtLength) {
+                quest += "\n";
+                txtLength = 50;
+            }
+            quest += para[i] + " ";
+            txtLength = txtLength - para[i].length();
+        }
+        Label questLabel = new Label(quest);
+        questLabel.setStyle("-fx-font: 30 arial;");
+        questLabel.setTranslateX(400);
+        questLabel.setTranslateY(250);
+        return questLabel;
     }
 
     // This will load the credit scene.
@@ -251,6 +394,7 @@ public class Main extends Application {
         musicPlay.setCycleCount(MediaPlayer.INDEFINITE);
         musicPlay.play();
 
+
         // This is for the initialization.
         if (currentVolume < 0) {
             currentVolume = musicPlay.getVolume() * 100;
@@ -275,7 +419,7 @@ public class Main extends Application {
         Label label1 = new Label("© 2019 Prince Game, CS 240");
         label1.setStyle("-fx-font: 15 arial;");
         Button start = new Button("New Game");
-        Button loading = new Button("Load Game");
+        Button loading = new Button("Load Your Life");
         Button options = new Button("Options");
         Button credits = new Button("Credits");
         Button quitting = new Button("Quit");
@@ -285,6 +429,7 @@ public class Main extends Application {
             @Override
             public void handle(ActionEvent event) {
                 // Creating the scene inside a event handler.
+                previous = sceneStart;
                 musicPlay.stop();
                 scenePlay = createPlayingScene();
                 musicPlay.setVolume(currentVolume);
@@ -321,7 +466,7 @@ public class Main extends Application {
 
         // Button for first page.
         VBox layoutNewGame = new VBox(20);
-        layoutNewGame.getChildren().addAll(start, loading, options, credits, quitting, label1);
+        layoutNewGame.getChildren().addAll(loading, options, credits, quitting, label1);
 
         // Moving to the right coordinate.
         layoutNewGame.setTranslateX(1300);
@@ -345,6 +490,13 @@ public class Main extends Application {
         // There are 21 songs. Begins from index of 0 to 20.
         // 0 - 7: Normal, 8 - 15 war crusade songs, 16 - 20 Dark era songs.
         songs = new createAudio();
+        rand = new Random();
+
+        // Calling GameManager
+        gameControl = new GameManager();
+
+        // Updating the status
+        update = null;
 
         // There are only 2 images.
         picture = new makeImage();
