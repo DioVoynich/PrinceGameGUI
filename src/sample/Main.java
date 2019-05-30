@@ -64,11 +64,12 @@ public class Main extends Application {
     private Random rand;
     private Event changing;
     private Decision[] options;
+    private int index;
 
     // This method will accept a random object as a parameter.
     private void playSong() {
         // int rVal = rand.nextInt(songs.getSize() - songChooser) + songChooser;
-        int rVal = rand.nextInt(18) + 3;
+        int rVal = rand.nextInt(17) + 3;
         String path = "E:\\All Computer Science Materials\\Java 240 Project\\PrinceFX\\Music\\"
                 + songs.getSong(rVal) + ".mp3";
         Media media = new Media(new File(path).toURI().toString());
@@ -116,7 +117,7 @@ public class Main extends Application {
             @Override
             public void handle(ActionEvent event) {
                 musicPlay.stop();
-                gameControl.reset();
+                //gameControl.newGame();
                 sceneStart = createStartScene();
                 musicPlay.setVolume(currentVolume);
                 stageOne.setScene(sceneStart);
@@ -138,15 +139,13 @@ public class Main extends Application {
     }
 
     private Group buildGame() {
-        gameControl.setEvent(rand);
         options = gameControl.currentEvent.getDecs();
         Group variousStatus = printStatus(gameControl.currentEvent);
 
         return variousStatus;
     }
 
-    // This will printout all the game status.
-    private Group printStatus(Event event) {
+    private Group createAllUnits() {
         // Name and Age
         Label name = new Label("Prince Harry");
         Label age = new Label("Age: " + gameControl.getStats().get("AGE"));
@@ -207,12 +206,78 @@ public class Main extends Application {
         allForces.getChildren().addAll(clergyGroup, nobilityGroup, commonersGroup);
         allForces.setTranslateX(400);
         allForces.setTranslateY(80);
+        return new Group(identity, year, personalStatus, allForces);
+    }
 
+    // This will printout all the game status.
+    private Group printStatus(Event event) {
+        Group allUnits = createAllUnits();
+//        // Name and Age
+//        Label name = new Label("Prince Harry");
+//        Label age = new Label("Age: " + gameControl.getStats().get("AGE"));
+//        VBox identity = new VBox(10);
+//        identity.getChildren().addAll(name, age);
+//        identity.setStyle("-fx-font: 30 arial;");
+//        identity.setTranslateX(60);
+//        identity.setTranslateY(90);
+//
+//        // Year
+//        Label year = new Label("Year: " + gameControl.getStats().get("YEAR") + " AD");
+//        year.setStyle("-fx-font: 30 arial;");
+//        year.setTranslateX(1250);
+//        year.setTranslateY(90);
+//
+//        // Personal Status
+//        Label wealth = new Label("Wealth: " + gameControl.getStats().get("WLTH"));
+//        Label army = new Label("Army: " + gameControl.getStats().get("ARMY"));
+//        Label health = new Label("Health: " + gameControl.getStats().get("HLTH"));
+//        VBox personalStatus = new VBox(80);
+//        personalStatus.getChildren().addAll(wealth, army, health);
+//        personalStatus.setStyle("-fx-font: 40 arial;");
+//        personalStatus.setTranslateX(30);
+//        personalStatus.setTranslateY(300);
+//
+//        // Other Forces: clergy, nobility, commoners
+//        HBox allForces = new HBox(120);
+//        // Clergy status
+//        Label clergy = new Label("Clergy: ");
+//        clergy.setStyle("-fx-font: 40 arial;");
+//        Label clergyLoyalty = new Label("Loyalty: " + gameControl.getStats().get("CLG_LOY"));
+//        clergyLoyalty.setStyle("-fx-font: 24 arial;");
+//        Label clergyInfluence = new Label("Influence: " + gameControl.getStats().get("CLG_INF"));
+//        clergyInfluence.setStyle("-fx-font: 24 arial;");
+//        VBox clergyGroup = new VBox();
+//        clergyGroup.getChildren().addAll(clergy,  clergyInfluence, clergyLoyalty);
+//
+//        // Nobility status
+//        Label nobility = new Label("Nobility: ");
+//        nobility.setStyle("-fx-font: 40 arial;");
+//        Label nobilityLoyalty = new Label("Loyalty: " + gameControl.getStats().get("NOB_LOY"));
+//        nobilityLoyalty.setStyle("-fx-font: 24 arial;");
+//        Label nobilityInfluence = new Label("Influence: " + gameControl.getStats().get("NOB_INF"));
+//        nobilityInfluence.setStyle("-fx-font: 24 arial;");
+//        VBox nobilityGroup = new VBox();
+//        nobilityGroup.getChildren().addAll(nobility, nobilityInfluence, nobilityLoyalty);
+//
+//        // commoners status
+//        Label commoners = new Label("Commoners: ");
+//        commoners.setStyle("-fx-font: 40 arial;");
+//        Label commonersLoyalty = new Label("Loyalty: " + gameControl.getStats().get("COM_LOY"));
+//        commonersLoyalty.setStyle("-fx-font: 24 arial;");
+//        Label commonersInfluence = new Label("Influence: " + gameControl.getStats().get("COM_INF"));
+//        commonersInfluence.setStyle("-fx-font: 24 arial;");
+//        VBox commonersGroup = new VBox();
+//        commonersGroup.getChildren().addAll(commoners, commonersInfluence, commonersLoyalty);
+//
+//        allForces.getChildren().addAll(clergyGroup, nobilityGroup, commonersGroup);
+//        allForces.setTranslateX(400);
+//        allForces.setTranslateY(80);
+//
         // Printing the quest text
         Group story = new Group();
         VBox allOptions = new VBox(15);
-        allOptions.setStyle("-fx-font: 28 arial;");
-        allOptions.setTranslateX(500);
+        allOptions.setStyle("-fx-font: 22 arial;");
+        allOptions.setTranslateX(350);
         allOptions.setTranslateY(400);
 
         if(event != null) {
@@ -222,16 +287,27 @@ public class Main extends Application {
                     break;
                 } else {
                     Button temp = new Button(((i + 1) + "." + event.getDecs()[i].getTxt()));
+                    index = i;
                     allOptions.getChildren().add(temp);
                     temp.setOnAction(new EventHandler<ActionEvent>() {
                         @Override
                         public void handle(ActionEvent actionEvent) {
+                            Effect[] update = options[index - 1].getEffs();
+                            // for loop applying stats updates
+                            for (int j = 0; j < update.length; j++) {
+                                if (update[j] == null) { //rough handling of null exceptions (change later)
+                                    break;
+                                }
+                                else {
+                                    String faction = update[j].getTarget();
+                                    int statChange = update[j].getValue();
+                                    gameControl.updateValue(faction, statChange);
+                                }
+                            }
                             if (gameControl.currentEvent.increasesYear()) {
                                 gameControl.increaseYear();
                             }
-//                            if (!(gameControl.currentEvent.left == null || gameControl.currentEvent.right == null)) {
-//                                gameControl.currentEvent = gameControl.nextEvent(gameControl.currentEvent, in.nextInt(), rand);
-//                            }
+                            gameControl.nextEvent(index + 1);
                             previous = null;
                             scenePlay = createPlayingScene();
                             musicPlay.setVolume(currentVolume);
@@ -242,7 +318,7 @@ public class Main extends Application {
             }
         }
 
-        lastResult = new Group(identity, year, personalStatus, allForces, story, allOptions);
+        lastResult = new Group(allUnits, story, allOptions);
         return lastResult;
     }
 
@@ -260,8 +336,8 @@ public class Main extends Application {
             txtLength = txtLength - para[i].length();
         }
         Label questLabel = new Label(quest);
-        questLabel.setStyle("-fx-font: 30 arial;");
-        questLabel.setTranslateX(400);
+        questLabel.setStyle("-fx-font: 28 arial;");
+        questLabel.setTranslateX(350);
         questLabel.setTranslateY(250);
         return questLabel;
     }
