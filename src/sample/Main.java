@@ -67,7 +67,7 @@ public class Main extends Application {
     // This method will accept a random object as a parameter.
     private void playSong() {
         // int rVal = rand.nextInt(songs.getSize() - songChooser) + songChooser;
-        int rVal = rand.nextInt(18) + 3;
+        int rVal = rand.nextInt(19) + 3;
         String path = "E:\\All Computer Science Materials\\Java 240 Project\\PrinceFX\\Music\\"
                 + songs.getSong(rVal) + ".mp3";
         Media media = new Media(new File(path).toURI().toString());
@@ -114,11 +114,16 @@ public class Main extends Application {
         goBack.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                musicPlay.stop();
-                //gameControl.newGame();
-                sceneStart = createStartScene();
-                musicPlay.setVolume(currentVolume);
-                stageOne.setScene(sceneStart);
+                // I know this is annoying, but you have to make sure handling the exception case.
+                try {
+                    musicPlay.stop();
+                    gameControl.newGame();
+                    sceneStart = createStartScene();
+                    musicPlay.setVolume(currentVolume);
+                    stageOne.setScene(sceneStart);
+                } catch (Exception e) {
+                    System.out.println("Something is wrong");
+                }
             }
         });
 
@@ -262,7 +267,6 @@ public class Main extends Application {
                             scenePlay = createPlayingScene();
                             musicPlay.setVolume(currentVolume);
                             stageOne.setScene(scenePlay);
-
                         }
                     });
                 }
@@ -421,6 +425,7 @@ public class Main extends Application {
         musicPlay.setCycleCount(MediaPlayer.INDEFINITE);
         musicPlay.play();
 
+
         // This is for the initialization.
         if (currentVolume < 0) {
             currentVolume = musicPlay.getVolume() * 100;
@@ -513,8 +518,8 @@ public class Main extends Application {
         currentVolume = -1;
         // default song range.
         songChooser = 5;
-        // There are 21 songs. Begins from index of 0 to 20.
-        // 0 - 7: Normal, 8 - 15 war crusade songs, 16 - 20 Dark era songs.
+        // There are 22 songs. Begins from index of 0 to 21.
+        // 0 - 8: Normal, 9 - 16 war crusade songs, 17 - 21 Dark era songs.
         songs = new createAudio();
         rand = new Random();
 
@@ -537,7 +542,7 @@ public class Main extends Application {
         sceneStart = createStartScene();
 
         stageOne.setScene(sceneStart);
-        stageOne.setTitle("Prince Game ver 4.5.2.b");
+        stageOne.setTitle("Prince Game ver 6.1.5.a");
         stageOne.show();
     }
 
