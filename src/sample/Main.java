@@ -58,18 +58,16 @@ public class Main extends Application {
     private double currentVolume;
     private int songChooser;
     private GameManager gameControl;
-    private Effect update;
     private Group princeAddon;
     private Group lastResult;
     private Random rand;
-    private Event changing;
     private Decision[] options;
-    private int index;
+    private HashMap<String, Integer> route;
 
     // This method will accept a random object as a parameter.
     private void playSong() {
         // int rVal = rand.nextInt(songs.getSize() - songChooser) + songChooser;
-        int rVal = rand.nextInt(17) + 3;
+        int rVal = rand.nextInt(18) + 3;
         String path = "E:\\All Computer Science Materials\\Java 240 Project\\PrinceFX\\Music\\"
                 + songs.getSong(rVal) + ".mp3";
         Media media = new Media(new File(path).toURI().toString());
@@ -130,21 +128,26 @@ public class Main extends Application {
         layoutPlaying.setTranslateX(1350);
         layoutPlaying.setTranslateY(750);
 
+
         // Depending how many options left.
-        princeAddon = buildGame();
+        buildGame();
 
         // Store them buttons and images together.
         Group playGroup = new Group(imageView, layoutPlaying, princeAddon);
         return new Scene(playGroup, 200, 200);
     }
 
-    private Group buildGame() {
-        options = gameControl.currentEvent.getDecs();
-        Group variousStatus = printStatus(gameControl.currentEvent);
-
-        return variousStatus;
+    // Playing Game recursively.
+    private void buildGame() {
+        if (!gameControl.isGameOver()) {
+            options = gameControl.currentEvent.getDecs();
+        } else {
+            options = null;
+        }
+        princeAddon = printStatus(gameControl.currentEvent);
     }
 
+    // This is just for my own convenience.
     private Group createAllUnits() {
         // Name and Age
         Label name = new Label("Prince Harry");
@@ -203,6 +206,7 @@ public class Main extends Application {
         VBox commonersGroup = new VBox();
         commonersGroup.getChildren().addAll(commoners, commonersInfluence, commonersLoyalty);
 
+        // Final grouping up process.
         allForces.getChildren().addAll(clergyGroup, nobilityGroup, commonersGroup);
         allForces.setTranslateX(400);
         allForces.setTranslateY(80);
@@ -212,73 +216,15 @@ public class Main extends Application {
     // This will printout all the game status.
     private Group printStatus(Event event) {
         Group allUnits = createAllUnits();
-//        // Name and Age
-//        Label name = new Label("Prince Harry");
-//        Label age = new Label("Age: " + gameControl.getStats().get("AGE"));
-//        VBox identity = new VBox(10);
-//        identity.getChildren().addAll(name, age);
-//        identity.setStyle("-fx-font: 30 arial;");
-//        identity.setTranslateX(60);
-//        identity.setTranslateY(90);
-//
-//        // Year
-//        Label year = new Label("Year: " + gameControl.getStats().get("YEAR") + " AD");
-//        year.setStyle("-fx-font: 30 arial;");
-//        year.setTranslateX(1250);
-//        year.setTranslateY(90);
-//
-//        // Personal Status
-//        Label wealth = new Label("Wealth: " + gameControl.getStats().get("WLTH"));
-//        Label army = new Label("Army: " + gameControl.getStats().get("ARMY"));
-//        Label health = new Label("Health: " + gameControl.getStats().get("HLTH"));
-//        VBox personalStatus = new VBox(80);
-//        personalStatus.getChildren().addAll(wealth, army, health);
-//        personalStatus.setStyle("-fx-font: 40 arial;");
-//        personalStatus.setTranslateX(30);
-//        personalStatus.setTranslateY(300);
-//
-//        // Other Forces: clergy, nobility, commoners
-//        HBox allForces = new HBox(120);
-//        // Clergy status
-//        Label clergy = new Label("Clergy: ");
-//        clergy.setStyle("-fx-font: 40 arial;");
-//        Label clergyLoyalty = new Label("Loyalty: " + gameControl.getStats().get("CLG_LOY"));
-//        clergyLoyalty.setStyle("-fx-font: 24 arial;");
-//        Label clergyInfluence = new Label("Influence: " + gameControl.getStats().get("CLG_INF"));
-//        clergyInfluence.setStyle("-fx-font: 24 arial;");
-//        VBox clergyGroup = new VBox();
-//        clergyGroup.getChildren().addAll(clergy,  clergyInfluence, clergyLoyalty);
-//
-//        // Nobility status
-//        Label nobility = new Label("Nobility: ");
-//        nobility.setStyle("-fx-font: 40 arial;");
-//        Label nobilityLoyalty = new Label("Loyalty: " + gameControl.getStats().get("NOB_LOY"));
-//        nobilityLoyalty.setStyle("-fx-font: 24 arial;");
-//        Label nobilityInfluence = new Label("Influence: " + gameControl.getStats().get("NOB_INF"));
-//        nobilityInfluence.setStyle("-fx-font: 24 arial;");
-//        VBox nobilityGroup = new VBox();
-//        nobilityGroup.getChildren().addAll(nobility, nobilityInfluence, nobilityLoyalty);
-//
-//        // commoners status
-//        Label commoners = new Label("Commoners: ");
-//        commoners.setStyle("-fx-font: 40 arial;");
-//        Label commonersLoyalty = new Label("Loyalty: " + gameControl.getStats().get("COM_LOY"));
-//        commonersLoyalty.setStyle("-fx-font: 24 arial;");
-//        Label commonersInfluence = new Label("Influence: " + gameControl.getStats().get("COM_INF"));
-//        commonersInfluence.setStyle("-fx-font: 24 arial;");
-//        VBox commonersGroup = new VBox();
-//        commonersGroup.getChildren().addAll(commoners, commonersInfluence, commonersLoyalty);
-//
-//        allForces.getChildren().addAll(clergyGroup, nobilityGroup, commonersGroup);
-//        allForces.setTranslateX(400);
-//        allForces.setTranslateY(80);
-//
         // Printing the quest text
         Group story = new Group();
         VBox allOptions = new VBox(15);
         allOptions.setStyle("-fx-font: 22 arial;");
         allOptions.setTranslateX(350);
-        allOptions.setTranslateY(400);
+        allOptions.setTranslateY(420);
+
+        // Storing all the indexes
+        route = new HashMap<String, Integer>();
 
         if(event != null) {
             story.getChildren().add(printParagraph(event.getTxt()));
@@ -286,19 +232,23 @@ public class Main extends Application {
                 if (event.getDecs()[i] == null) {
                     break;
                 } else {
-                    Button temp = new Button(((i + 1) + "." + event.getDecs()[i].getTxt()));
-                    index = i;
+                    String text = ((i + 1) + "." + event.getDecs()[i].getTxt());
+                    if (text.length() > 80) {
+                        text = text.substring(0, 80) + "-\n" + text.substring(80);
+                    }
+                    route.put(text, i);
+
+                    Button temp = new Button(text);
                     allOptions.getChildren().add(temp);
                     temp.setOnAction(new EventHandler<ActionEvent>() {
                         @Override
                         public void handle(ActionEvent actionEvent) {
-                            Effect[] update = options[index - 1].getEffs();
+                            Effect[] update = options[route.get(temp.getText().toString())].getEffs();
                             // for loop applying stats updates
                             for (int j = 0; j < update.length; j++) {
                                 if (update[j] == null) { //rough handling of null exceptions (change later)
                                     break;
-                                }
-                                else {
+                                } else {
                                     String faction = update[j].getTarget();
                                     int statChange = update[j].getValue();
                                     gameControl.updateValue(faction, statChange);
@@ -307,11 +257,12 @@ public class Main extends Application {
                             if (gameControl.currentEvent.increasesYear()) {
                                 gameControl.increaseYear();
                             }
-                            gameControl.nextEvent(index + 1);
+                            gameControl.nextEvent(route.get(temp.getText().toString()));
                             previous = null;
                             scenePlay = createPlayingScene();
                             musicPlay.setVolume(currentVolume);
                             stageOne.setScene(scenePlay);
+
                         }
                     });
                 }
@@ -470,7 +421,6 @@ public class Main extends Application {
         musicPlay.setCycleCount(MediaPlayer.INDEFINITE);
         musicPlay.play();
 
-
         // This is for the initialization.
         if (currentVolume < 0) {
             currentVolume = musicPlay.getVolume() * 100;
@@ -571,9 +521,6 @@ public class Main extends Application {
         // Calling GameManager
         gameControl = new GameManager();
 
-        // Updating the status
-        update = null;
-
         // There are only 2 images.
         picture = new makeImage();
 
@@ -590,7 +537,7 @@ public class Main extends Application {
         sceneStart = createStartScene();
 
         stageOne.setScene(sceneStart);
-        stageOne.setTitle("Prince Game ver 3.0.2.b");
+        stageOne.setTitle("Prince Game ver 4.5.2.b");
         stageOne.show();
     }
 

@@ -62,7 +62,7 @@ public class PrinceGame {
             game.increaseYear();
         }
         //chooses next event for the next round
-        game.nextEvent(choice); 
+        game.nextEvent(choice);
         
 
 

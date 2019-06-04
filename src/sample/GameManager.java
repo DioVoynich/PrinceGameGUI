@@ -28,7 +28,7 @@ public class GameManager {
    //constructor
    //requires name of player character at start of the new game
    public GameManager() throws Exception {
-      this.name = "David";
+      this.name = "Harry";
       eventObjs = new ArrayList<Event>();
       eventObjs = loadEvents("E:\\All Computer Science Materials\\Java 240 Project\\PrinceFX\\src\\sample\\situation.txt");
       chainEvents = new ArrayList<Event>();
@@ -43,14 +43,14 @@ public class GameManager {
 
       
      // sets the first event
-      setEvent();
+      //setEvent();
    }
 
    public void setEvent() {
       Random rng = new Random();
       int dice = rng.nextInt(99);
      if(!chainEvents.isEmpty()){ 
-         if (dice < 20) {
+         if (dice < 10) {
            currentEvent= chainEvents.get(rng.nextInt(chainEvents.size()));
          } else {
            currentEvent = eventObjs.get(rng.nextInt(eventObjs.size()));
@@ -66,6 +66,7 @@ public class GameManager {
 // if the current event is a chain event, it will take it in the direction it is supposed to go
 //else it will send to SetEvent and pick randomly
    public void nextEvent(int i) {
+
         //deletes the chain events for no duplicates      
         if(chainEvents.contains(currentEvent)) {
             chainEvents.remove(currentEvent);
@@ -73,19 +74,21 @@ public class GameManager {
         if( currentEvent.left == null && currentEvent.right == null ) {
             setEvent();
 
-        } else if (i == 1) {
+        } else if (i == 0) {
                if(currentEvent.left != null ) {
                   currentEvent = currentEvent.left;
                } else {
                   setEvent();
                }
-        } else if (i == 2) { 
+        } else if (i == 1) {
                if( currentEvent.right != null) {
                   currentEvent = currentEvent.right;
                } else {
                   setEvent();
                }
-         } 
+        } else {
+          setEvent();
+        } 
 
    }
 
@@ -163,8 +166,16 @@ public class GameManager {
                     String[] keyAndStat = currentKeyAndStat.split("#");
                     String key = keyAndStat[0].toString();
                     String statStr = keyAndStat[1].toString();
-                    int stat = Integer.parseInt(statStr);
-                    //builds the effect with the variables
+                    int stat = 0;
+                    if(statStr.contains("-")){
+                        int signIndex = statStr.indexOf('-') + 1;
+                        statStr = statStr.substring(signIndex);
+                        stat = Integer.parseInt(statStr);
+                        stat*=-1;
+                        //builds the effect with the variables
+                    }else{
+                        stat = Integer.parseInt(statStr);
+                    }
                     Effect currentEff = new Effect(key,stat);
                     //adds to the list of effects
                     effects[index] = currentEff;
@@ -208,9 +219,6 @@ public class GameManager {
    public void increaseYear() {
        stats.put("AGE", stats.get("AGE") + 1);
        stats.put("YEAR", stats.get("YEAR") + 1);
-       updateValue("HLTH", 5);
-       updateValue("WLTH", 5);
-       updateValue("ARMY", 5);
    }
 
    // get rid of gameover field, check if currentEvent isLoss, if yes then print loss event and end loop
@@ -238,6 +246,7 @@ public class GameManager {
    
    private void makeChains() throws Exception {
       makeChainWitchHunt();
+      tutorial();
    }
    
    private void makeChainWitchHunt()throws Exception {
@@ -266,9 +275,18 @@ public class GameManager {
       witchHunt.get(10).right = witchHunt.get(12);
       
       chainEvents.add(witchHunt.get(0));
-      
+   }
+   private void tutorial() throws Exception {
+      ArrayList<Event> tutorial = new ArrayList<Event>();
+      tutorial = loadEvents("E:\\All Computer Science Materials\\Java 240 Project\\PrinceFX\\src\\sample\\tutorial.txt");
+      tutorial.get(0).left = tutorial.get(1);
+      tutorial.get(1).left = tutorial.get(2);
+      tutorial.get(2).left = tutorial.get(3);
+      tutorial.get(3).left = tutorial.get(4);
+      currentEvent = tutorial.get(0);
       
    }
+   
    private void buildStatsMap() {
 
        stats.put("CLG_LOY", 50);
@@ -277,9 +295,9 @@ public class GameManager {
        stats.put("NOB_INF", 50);
        stats.put("COM_LOY", 50);
        stats.put("COM_INF", 50);
-       stats.put("WLTH", 50);
-       stats.put("ARMY", 50);
-       stats.put("HLTH", 50);
+       stats.put("WLTH", 100);
+       stats.put("ARMY", 100);
+       stats.put("HLTH", 100);
        stats.put("YEAR", 1066);
        stats.put("AGE", 20);
 
@@ -302,7 +320,6 @@ public class GameManager {
        lossEvents.put("HLTH", lossEventsStorage.get(8));
        lossEvents.put("AGE", lossEventsStorage.get(9));
    }
-   
    public void newGame() throws Exception {
       stats.clear();
       buildStatsMap();
