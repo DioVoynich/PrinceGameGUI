@@ -1,0 +1,81 @@
+T:Witch Hunt 0
+Year:N
+Sit:You hear a rabble coming from the courtyard in town. You ask your advisers to see what is going on and they return saying that the townspeople have found a witch and they intend to put her on trial. How should you proceed
+Let's see what is going on/CLG_LOY#0
+Let the people do what they want/CLG_LOY#0
+*
+T:Witch Hunt 1
+Year:N
+Sit: As you arrive, you find a woman, dressed in a long nose and pointed hat, standing before a large crowd of angry townspeople. The crowd shout that she is a witch, and she must burn for her sins, but the woman cries that she is not a witch, and she is being framed.
+How do you know she is a witch?/CLG_LOY#0
+Fair enough, time to burn/CLG_LOY#0
+*
+T:Witch Hunt 2
+Year:Y
+Sit: Without your intervention the woman was burned at the stake  
+Oops/COM_INF#20 CLG_LOY#-20
+As should any witch/CLG_LOY#-20 COM_INF#20
+*
+T:Witch Hunt 3
+Year:N
+Sit: "She Looks like one!" they say. "They dressed me up like this" the woman responds. "Yes, well she turned me into a newt!" says a man who is clearly not a newt, "I got better, burn her anyway".
+There are ways of telling whether she is a witch/CLG_LOY#0
+This is a farce, everyone go home there will be no burning/CLG_LOY#0
+*
+T:Witch Hunt 4
+Year:N
+Sit: "What are these ways, tell us!"
+Tell me, what do you do with Witches?/CLG_LOY#0
+I'm not telling you, she is clearly not a witch, go home/CLG_LOY#0
+*
+T:Witch Hunt 5
+Year:N
+Sit: "Burn them up!"
+And what do you burn apart from witches?/CLG_LOY#0
+Exactly, so don't burn this woman, now go home/CLG_LOY#0
+*
+T:Witch Hunt 6
+Year:N
+Sit: "More witches!" "No no, that's not it, Wood!"
+So why do witches burn?/CLG_LOY#0
+I feel like we're getting no where with this/CLG_LOY#0
+*
+T:Witch Hunt 7
+Year:N
+Sit: "Um... because they're made of wood?"
+Good, so how do we will whether she is made of wood?/CLG_LOY#0
+So don't burn this woman, as she is not wood/CLG_LOY#0
+*
+T:Witch Hunt 8
+Year:N
+Sit: "Build a bridge out of her? No, wait you can build a bridge out of stone"
+Does wood sink in water?/CLG_LOY#0
+please just leave/CLG_LOY#0
+*
+T:Witch Hunt 9
+Year:N
+Sit: "No it floats! Throw her in the pond!"
+What also floats in water?/CLG_LOY#0
+I mean if that floats your boat/CLG_LOY#0
+*
+T:Witch Hunt 10
+Year:N
+Sit: "Bread? Apples? Very small rocks? A Duck!"
+Exactly, so, if she weighs the same as a duck?/CLG_LOY#0
+And she is not a duck, therefore she is innocent/CLG_LOY#0
+*
+T:Witch Hunt 11
+Year:Y
+Sit: "Then she must be a witch!" The crowd brings forth a large scale with a live duck on it. To the amazement of the crowd, the woman did indeed weigh the same as the duck. 
+Burn the Witch!/COM_LOY#25 CLG_LOY#25
+*
+T:Witch Hunt 12
+Year:Y
+Sit: The Crowd dispurses, unhappy with your decision to spare the woman, but not willing to fight against your ruling.
+Witches, how upsurd/COM_LOY#-25
+*
+T:Witch Hunt 13
+Year:Y
+Sit: You take the woman to the nearby pond and find that as soon as she is let go she transforms into a duck and takes flight
+I did not expect that, I guess she was a witch/COM_LOY#-30
+*

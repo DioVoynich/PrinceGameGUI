@@ -1,0 +1,161 @@
+T:thiefCapture
+Year:Y
+Sit:The knights have found a thief that has stolen food for his family what type of justice will you execute?
+)let him go(show mercy)/COM_LOY#25
+)execute him/COM_LOY#-25 CLG_LOY#-25
+*
+T:thiefCapture 2
+Year:Y
+Sit:Thy church demands thy thief be executed for stealing thy donations
+)let him go(show mercy)/CLG_LOY#-15 COM_LOY#15
+)execute him/CLG_LOY#25 COM_LOY#-15
+)imprison him/CLG_LOY#15 COM_LOY#-15
+)sell him to the slave traders/CLG_LOY#10 COM_LOY#-15
+*
+T:New Market opportunity
+Year:Y
+Sit:The merchants want to open up a new market place this could favor our economy but the final decision is yours m'lord
+)allow them/WLTH#15
+)Tell them to pay a fine for suggesting something so ridiculous/WLTH#15 COM_LOY#-15 NOB_LOY#-10
+)Are they not content with what they already have/COM_LOY#-10 NOB_LOY#-10
+)Yes we shall contribute to this too/WLTH#-15 COM_LOY#10 NOB_LOY#15
+*
+T:Peace Treaty
+Year:Y
+Sit:The Neighboring Country Has Offered The chance To Make A Peace Treaty Would You Like To Accept
+)Yes/CLG_LOY#10 COM_LOY#10 NOB_LOY#10 ARMY#-10
+)No/NOB_LOY#-10 CLG_LOY#-5 COM_LOY#-5
+)PLease inform them that we shall wait before getting to an agreement/NOB_LOY#15 CLG_LOY#10 COM_LOY#10
+)Tell my general to deal with this/CLG_LOY#5 COM_LOY#10 NOB_LOY#-10 ARMY#10
+*
+T:Church Constructions
+Year:Y
+Sit:The Pope Suggests We Build A New Church For The People
+)We shall fund the new church tell the citizens to rejoice/CLG_LOY#10 WLTH#-25 COM_LOY#20 ARMY#-15
+)No/CLG_LOY#-10 CLG_INF#-10 ARMY#10
+)If they want to construct a church they will do it themselves/CLG_LOY#10 COM_LOY#-10
+)Yes allow them but they shall pay a fee to be able to construct/CLG_LOY#-15 WLTH#20 COM_LOY#-15 ARMY#-10
+*
+T:Revolt
+Year:Y
+Sit:The commoners have started a revolt, would you like to send our forces to suppress the people?
+)Yes/COM_LOY#-15 COM_INF#-15 ARMY#10 NOB_LOY#10
+)No/NOB_LOY#-15 COM_INF#10
+)Please send a representative to deal with this peacefully/COM_LOY#10 COM_INF#10
+)Execute them at once/COM_LOY#-20 COM_INF#-20
+*
+T:Expansion
+Year:Y
+Sit:The Military Adviser Has suggested attacking a weaker kingdom in the west
+)Yes/ARMY#-15 NOB_LOY#15 HLTH#-25
+)Send a representative to form an alliance with this kingdom/ARMY#-15 NOB_LOY#15 HLTH#-15 WLTH#20
+)No/CLG_LOY#15 CLG_INF#10
+*
+T:Military enlistment
+Year:Y
+Sit:The Military adviser Suggests Enlisting Part Of The Population To Increase Our Manpower
+)Yes/ARMY#15 COM_LOY#5 COM_INF#-15
+)No/COM_LOY#10 COM_INF#5
+*
+T:Wealth Chance
+Year:Y
+Sit:A Miner Has Found Gold Should The Mine Procede And Excavate deeper but they are requesting you increase their salaries
+)No/NOB_LOY#-10 NOB_INF#-10
+)We will not tolerate the greed of these men have them work 2 days to pay for there greed/COM_LOY#-10 COM_INF#-15 WLTH#10
+)Reward these men for what they have discovered/WLTH#-10 NOB_LOY#10 NOB_INF#15
+*
+T:Traitor among us
+Year:Y
+Sit:your close friend in the nobility informs you that there is a traitor among us within the nobles
+)You execute the corrupt noble/NOB_LOY#-15 NOB_INF#-10
+)Not my Problem/WLTH#-15 NOB_INF#15
+)We shall send a spy to observe this possible traitor/WLTH#-10 NOB_INF#-10
+)have him captured and torture him for information/WLTH#15 NOB_INF#-10 NOB_LOY#-15
+*
+T:Orphanage Needed
+Year:Y
+Sit: The Clergy suggests that you build an orphanage to give the little ones an opportunities
+)Have them pay a fee for constructing/WLTH#15 CLG_LOY#-10 CLG_INF#-15
+)If we execute the orphans there will be no need for an orphanage/CLG_LOY#-15 CLG_INF#-15 COM_LOY#-15 COM_INF#-15
+)NO/CLG_LOY#-10 CLG_INF#-15
+)We shall fund this construction/CLG_LOY#15 WLTH#-15 CLG_INF#10 COM_LOY#10
+*
+T:Wedding Proposal
+Year:Y
+Sit:The neighboring kingdom has proposed you marry their princes to form a truce and unite the kingdoms
+)Yes/ARMY#15 NOB_LOY#10
+)Have a nobal take my place/ARMY#15 NOB_LOY#15
+)No/NOB_LOY#-15 ARMY#-15
+*
+T:Token of Gratitude
+Year:Y
+Sit:A merchant has been caught selling unregistered illegal silk, but he's offering some of it as a "token of gratitude" to his government, what shall we do?
+)Confiscate all of the illegal materials and have the knights keep an eye on him/WLTH#-10 ARMY#-10 NOB_LOY#10
+)"this token of gratitude is much appreciated":you let him go/WLTH#15 ARMY#5 NOB_LOY#-10
+*
+T:Contraband
+Year:Y
+Sit:A ship has been caught transporting forbidden merchandise what shall we do?
+)Not my problem/WLTH#-10 NOB_LOY#-10
+)Fine them for their crimes/WLTH#15 NOB_LOY#10
+)Execute them/NOB_LOY#10 COM_LOY#-10 NOB_INF#10
+*
+T:Build School
+Year:Y
+Sit:The clergy suggests build a school for educating the children even though the nobles may oppose it
+)Yes, lets start at once/WLTH#-15 COM_LOY#15 NOB_LOY#-10 CLG_INF#10
+)No, the commoners don't deserve education/COM_LOY#-15 NOB_LOY#15 CLG_INF#-10
+)Yes, but the people shall pay for this/COM_LOY#-10 NOB_LOY#10 CLG_INF#10
+*
+T:commoners want increased wage
+Year:Y
+Sit:The miners have been very efficient and want an increase in salary what should we tell them?
+)yes, that is well deserved/COM_LOY#15 WLTH#-15
+)Absolutely not, that is an insult to the king, is it not enough to serve the kingdom. Have the man that proposed this decapitated/COM_LOY#-10 WLTH#15
+*
+T:Cold Winter
+Year:Y
+Sit:This is the coldest winter in a couple years shall we give resources to the people?
+)Yes, we have to put the people first/WLTH#-20 COM_LOY#15 CLG_LOY#10
+)No, Lets find a way to make profits with the resources since they are much needed/WLTH#20 COM_LOY#-15 NOB_INF#10
+*
+T:Our children are in danger
+Year:Y
+Sit:Wolves have been hunting down our children, would you authorize sending out an extermination party
+)Yes, have these wretched beasts hunted at once/COM_LOY#10 CLG_LOY#10 WLTH#-20
+)No, it's not my fault the kids are stupid/COM_LOY#-15 CLG_LOY#-10
+)Have the wolves hunted and given to the commoners so that they may sell them/COM_LOY#10 CLG_LOY#10
+*
+T:great harvest
+Year:Y
+Sit:There was a great harvest this year what would you like to do?
+)let's make a feast for our people, and donate to the church/COM_LOY#15 CLG_LOY#10 NOB_LOY#-10
+)Let's store the extra resources for winter/NOB_LOY#10 WLTH#15
+*
+T:Merchant guild proposal
+Year:Y
+Sit:the merchants would like to create a new guild and send their representative to the court
+)Yes/COM_LOY#10 WLTH#-20
+)No/COM_LOY#-10
+*
+T:Possible heretics
+Year:Y
+Sit:There are rumors of villagers being possible heretics and the clergy wants your support what shall you do my lord
+)Have my general execute the suspects/CLG_LOY#15 CLG_INF#15 COM_LOY#-20
+)these are ignorant rumors, we will tax the church for believing in suck foolishness/WLTH#15 CLG_LOY#-15 CLG_INF#-15
+)I have no business in meddling in these peoples lives/CLG_LOY#-15 CLG_INF#-15
+*
+T:Taxing church
+Year:Y
+Sit:The curch seems a bit too wealthy would you like to tax them for more my sire
+)Yes we can't have the church be too wealthy/WLTH#20 CLG_LOY#-20 CLG_INF#-20
+)No because they will put the money to good use/CLG_LOY#15 CLG_INF#15
+*
+T:Land dispute
+Year:Y
+Sit:A farmer is arguing with the church over a piece of land saying the land is his
+)Give the land to the church because they are saving our people's souls/CLG_LOY#15 CLG_INF#15 COM_LOY#-15 COM_INF#-15
+)Give the land to the farmer he probably needs to feed his children/COM_LOY#15 COM_INF#15 CLG_LOY#-15 CLG_INF#-15
+)Give the land to our general to build new training grounds for our army/COM_LOY#-15 CLG_LOY#-15 ARMY#15 WLTH#-20
+)We shall split the land and give each of them a half/COM_LOY#10 COM_INF#10 CLG_LOY#10 CLG_INF#10
+*

@@ -1,0 +1,40 @@
+T:CLG_LOY_LOSE
+Year:N
+Sit: The Pope had not taken kindly to your constant tryanny towards the Christians of your lands. He called for a crusade to cleanse your acts of heresy. Your allies and vassals deserted you, the Heathen Prince,  leaving you alone to be Crusified and burned alive for your life of sin.   
+*
+T:CLG_INF_LOSE
+Year:N
+Sit:As the Clergy grew in influence, the day to day administration of the realm left your throne and entered the cathedrals and bishoprics of your realm; leaving you a prince in name only, no longer a ruler, but a petty noble of no real importance, the Forgotten Prince.
+*
+T:NOB_LOY_LOSE
+Year:N
+Sit:The Nobility chafed under your oppressive rule, and before you had even realized what had happened, you found your castle besieged your own vassals. Your personal bodyguard fought formidibly, but they were no match for the numbers against them. You were caught attempting to flee, and were cut down where you stood, forever known as the Cowardly Prince.
+*
+T:NOB_INF_LOSE
+Year:N
+Sit:As the Nobility of your land gained influence, they no longer needed a Prince to swear fealty to.
+*
+T:COM_LOY_LOSE
+Year:N
+Sit:The people have had enough of your oppression of the proletariat. They have achieved class consciousness and have set up an anarcho-syndicalist commune. Where they take it in turns to act as sort of executive officer for the week, but all the decisions of that officer have to be ratified at a special bi-weekly meeting by a simple majority in the case of purely internal affairs but by a two thirds majority in the case of more...
+*
+T:COM_INF_LOSE
+Year:N
+Sit:More and more power has left the halls of your throne and into the cities of the realm.
+*
+T:WLTH_LOSE
+Year:N
+Sit:Without coin your crown is worthless.
+*
+T:ARMY_LOSE
+Year:N
+Sit:Your army has been decimated, and without it your lands have been overrun with bandits.
+*
+T:HEALTH_LOSE
+Year:N
+Sit:You feel everything go dark, then see a bright light at the end of a tunnel. This is your end.
+*
+T: AGE_LOSE
+Year:N
+Sit:You die peacefully in your bed. You kept your throne safe, and traversed the pitfalls of rulers before you. You will be fondly remembered by your people.
+*

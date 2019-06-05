@@ -1,0 +1,28 @@
+T:tutorial 0
+Year:N
+Sit:Hello, my liege, today is the day of your coronation, you will be our prince. Would you like me to explain the situation of the realm?
+Yes go ahead (tutorial)/CLG_LOY#0
+That is not necessary/CLG_LOY#0
+*
+T:tutorial 1
+Year:N
+Sit:Your role as our leige is to lead this princedom. Your subjects will come to you with concerns and your duty is to decide what the outcome will be; your word is law.
+It's good to be Prince/CLG_LOY#0
+*
+T:tutorial 2
+Year:N
+Sit:However, the estates of your land are in a constant struggle for influence. Your Nobility, Clergy, and even the Commoners would love to take the reigns of power for themselves. If their Influence becomes too high, they will no longer need you or your throne, so it is important to keep them in check.  
+Disconcerting/CLG_LOY#0
+*
+T:tutorial 3
+Year:N
+Sit:And try your best not to be too harsh, your subects are bound to follow your will, but if you test them too much, their Loyality will break and they will revolt, and you will find yourself without a throne and without a head.
+Well I do need my head/CLG_LOY#0
+*
+T:tutorial 4
+Year:Y
+Sit:You have your personal Wealth and Army to rely on if you cannot trust your subjects. But you also have your own wellbeing to care for, my lord, you much watch your Health.  
+I understand/CLG_LOY#0
+You bore me, you're fired/NOB_LOY#-5
+Guards, have my steward executed/NOB_LOY#-10
+*
