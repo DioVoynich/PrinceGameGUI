@@ -30,7 +30,7 @@ public class GameManager {
    public GameManager() throws Exception {
       this.name = "Harry";
       eventObjs = new ArrayList<Event>();
-      eventObjs = loadEvents("E:\\All Computer Science Materials\\Java 240 Project\\PrinceFX\\src\\sample\\situation.txt");
+      eventObjs = loadEvents("C:\\Users\\Public\\Documents\\PrinceFX\\src\\sample\\situation.txt");
       chainEvents = new ArrayList<Event>();
       stats = new HashMap<>();
       lossEvents = new HashMap<>();
@@ -50,7 +50,7 @@ public class GameManager {
       Random rng = new Random();
       int dice = rng.nextInt(99);
      if(!chainEvents.isEmpty()){ 
-         if (dice < 10) {
+         if (dice < 5) {
            currentEvent= chainEvents.get(rng.nextInt(chainEvents.size()));
          } else {
            currentEvent = eventObjs.get(rng.nextInt(eventObjs.size()));
@@ -246,12 +246,13 @@ public class GameManager {
    
    private void makeChains() throws Exception {
       makeChainWitchHunt();
+      crusade();
       tutorial();
    }
    
    private void makeChainWitchHunt()throws Exception {
       ArrayList<Event> witchHunt = new ArrayList<Event>();
-      witchHunt = loadEvents("E:\\All Computer Science Materials\\Java 240 Project\\PrinceFX\\src\\sample\\witch hunt.txt");
+      witchHunt = loadEvents("C:\\Users\\Public\\Documents\\PrinceFX\\src\\sample\\witch hunt.txt");
       
       witchHunt.get(0).left = witchHunt.get(1);
       witchHunt.get(0).right = witchHunt.get(2);
@@ -278,7 +279,7 @@ public class GameManager {
    }
    private void tutorial() throws Exception {
       ArrayList<Event> tutorial = new ArrayList<Event>();
-      tutorial = loadEvents("E:\\All Computer Science Materials\\Java 240 Project\\PrinceFX\\src\\sample\\tutorial.txt");
+      tutorial = loadEvents("C:\\Users\\Public\\Documents\\PrinceFX\\src\\sample\\tutorial.txt");
       tutorial.get(0).left = tutorial.get(1);
       tutorial.get(1).left = tutorial.get(2);
       tutorial.get(2).left = tutorial.get(3);
@@ -305,7 +306,7 @@ public class GameManager {
 
    private void buildLossMap() throws Exception {
        ArrayList<Event> lossEventsStorage = new ArrayList<Event>();
-       lossEventsStorage = loadEvents("E:\\All Computer Science Materials\\Java 240 Project\\PrinceFX\\src\\sample\\loss events.txt");
+       lossEventsStorage = loadEvents("C:\\Users\\Public\\Documents\\PrinceFX\\src\\sample\\loss events.txt");
        for (int i = 0; i < 10; i++) {
            lossEventsStorage.get(i).isLoss = true;
        }
@@ -320,6 +321,60 @@ public class GameManager {
        lossEvents.put("HLTH", lossEventsStorage.get(8));
        lossEvents.put("AGE", lossEventsStorage.get(9));
    }
+
+   // Crusade update
+   private void crusade()throws Exception {
+       ArrayList<Event> crusade = new ArrayList<Event>();
+       crusade = loadEvents("C:\\Users\\Public\\Documents\\PrinceFX\\src\\sample\\crusade.txt");
+       //crusade.get().left = crusade.get();
+       // crusade.get().right =crusade.get();
+       crusade.get(0).left = crusade.get(1);
+       crusade.get(1).left = crusade.get(2);
+       crusade.get(1).right =crusade.get(18);
+       crusade.get(2).left = crusade.get(4);
+       crusade.get(2).right =crusade.get(3);
+       crusade.get(3).left = crusade.get(4);
+       crusade.get(3).right =crusade.get(5);
+       crusade.get(4).left = crusade.get(6);
+       crusade.get(5).left = crusade.get(7);
+       crusade.get(6).left = crusade.get(17);
+       crusade.get(6).right =crusade.get(8);
+       crusade.get(7).left = crusade.get(17);
+       crusade.get(7).right =crusade.get(8);
+       crusade.get(8).left = crusade.get(9);
+       crusade.get(9).left = crusade.get(10);
+       crusade.get(9).right =crusade.get(15);
+       crusade.get(10).left = crusade.get(11);
+       crusade.get(11).left = crusade.get(12);
+       crusade.get(11).right =crusade.get(14);
+       crusade.get(12).left = crusade.get(13);
+       crusade.get(12).right =crusade.get(14);
+       crusade.get(15).left = crusade.get(16);
+       crusade.get(17).left = crusade.get(24);
+       crusade.get(18).left = crusade.get(19);
+       crusade.get(18).right =crusade.get(20);
+       crusade.get(19).left = crusade.get(20);
+       crusade.get(19).right =crusade.get(23);
+       crusade.get(20).left = crusade.get(21);
+       crusade.get(20).right =crusade.get(22);
+       crusade.get(21).left = crusade.get(23);
+       crusade.get(22).left = crusade.get(23);
+       crusade.get(23).left = crusade.get(24);
+       crusade.get(24).left = crusade.get(25);
+       crusade.get(24).right =crusade.get(25);
+       crusade.get(25).left = crusade.get(26);
+       crusade.get(26).left = crusade.get(27);
+       crusade.get(27).left = crusade.get(28);
+       crusade.get(27).right =crusade.get(29);
+       crusade.get(29).left = crusade.get(30)
+       ;crusade.get(29).right =crusade.get(30);
+       crusade.get(30).left = crusade.get(31);
+       crusade.get(31).left = crusade.get(32);
+       crusade.get(31).right =crusade.get(32);
+       chainEvents.add(crusade.get(0));
+   }
+
+
    public void newGame() throws Exception {
       stats.clear();
       buildStatsMap();

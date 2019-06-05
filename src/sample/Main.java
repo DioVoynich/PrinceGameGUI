@@ -68,7 +68,7 @@ public class Main extends Application {
     private void playSong() {
         // int rVal = rand.nextInt(songs.getSize() - songChooser) + songChooser;
         int rVal = rand.nextInt(19) + 3;
-        String path = "E:\\All Computer Science Materials\\Java 240 Project\\PrinceFX\\Music\\"
+        String path = "C:\\Users\\Public\\Documents\\PrinceFX\\Music\\"
                 + songs.getSong(rVal) + ".mp3";
         Media media = new Media(new File(path).toURI().toString());
         musicPlay = new MediaPlayer(media);
@@ -92,8 +92,8 @@ public class Main extends Application {
             playSong();
         }
 
-        Image image = new Image(new File("E:\\All Computer Science Materials\\" +
-                "Java 240 Project\\PrinceFX\\image\\" + picture.getImage(6) + ".png").toURI().toString());
+        Image image = new Image(new File("C:\\Users\\Public\\Documents\\PrinceFX\\image\\"
+                + picture.getImage(6) + ".png").toURI().toString());
         //Setting the image view
         ImageView imageView = new ImageView(image);
 
@@ -178,8 +178,8 @@ public class Main extends Application {
 
         // Year
         Label year = new Label("Year: " + gameControl.getStats().get("YEAR") + " AD");
-        year.setStyle("-fx-font: 24 arial;");
-        year.setTranslateX(1240);
+        year.setStyle("-fx-font: 20 arial;");
+        year.setTranslateX(1250);
         year.setTranslateY(120);
 
         // Personal Status
@@ -304,15 +304,15 @@ public class Main extends Application {
             txtLength = txtLength - para[i].length();
         }
         Label questLabel = new Label(quest);
-        questLabel.setStyle("-fx-font: 24 arial;");
+        questLabel.setStyle("-fx-font: 22 arial;");
         questLabel.setTranslateX(420);
-        questLabel.setTranslateY(300);
+        questLabel.setTranslateY(280);
         return questLabel;
     }
 
     // This will load the credit scene.
     private Scene createCreditScene() {
-        String path = "E:\\All Computer Science Materials\\Java 240 Project\\PrinceFX\\Music\\"
+        String path = "C:\\Users\\Public\\Documents\\PrinceFX\\Music\\"
                 + songs.getSong(2) + ".mp3";
         Media media = new Media(new File(path).toURI().toString());
         musicPlay = new MediaPlayer(media);
@@ -360,7 +360,7 @@ public class Main extends Application {
 
     // This method will create option scene. It is accessible from main and playing.
     private Scene createOptionScene() {
-        String path = "E:\\All Computer Science Materials\\Java 240 Project\\PrinceFX\\Music\\"
+        String path = "C:\\Users\\Public\\Documents\\PrinceFX\\Music\\"
                 + songs.getSong(1) + ".mp3";
         Media media = new Media(new File(path).toURI().toString());
 
@@ -394,8 +394,8 @@ public class Main extends Application {
         temp.setTranslateY(410);
         volumeSlider.setMinWidth(400);
 
-        Image image = new Image(new File("E:\\All Computer Science Materials\\" +
-                "Java 240 Project\\PrinceFX\\image\\" + picture.getImage(2) + ".png").toURI().toString());
+        Image image = new Image(new File("C:\\Users\\Public\\Documents\\PrinceFX\\image\\"
+                + picture.getImage(2) + ".png").toURI().toString());
         //Setting the image view
         ImageView imageView = new ImageView(image);
 
@@ -447,7 +447,7 @@ public class Main extends Application {
 
     // This method will create the main scene of the game.
     private Scene createStartScene() {
-        String path = "E:\\All Computer Science Materials\\Java 240 Project\\PrinceFX\\Music\\"
+        String path = "C:\\Users\\Public\\Documents\\PrinceFX\\Music\\"
                 + songs.getSong(0) + ".mp3";
         Media media = new Media(new File(path).toURI().toString());
         musicPlay = new MediaPlayer(media);
@@ -463,8 +463,8 @@ public class Main extends Application {
         }
 
         //Creating an image from the image file.
-        Image image = new Image(new File("E:\\All Computer Science Materials\\" +
-                "Java 240 Project\\PrinceFX\\image\\" + picture.getImage(0) + ".png").toURI().toString());
+        Image image = new Image(new File("C:\\Users\\Public\\Documents\\PrinceFX\\image\\"
+                + picture.getImage(0) + ".png").toURI().toString());
         //Setting the image view
         ImageView imageView = new ImageView(image);
 

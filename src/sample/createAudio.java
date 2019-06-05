@@ -10,8 +10,7 @@ public class createAudio {
     // This is the constructor.
     public createAudio() throws Exception{
         storedSound = new ArrayList<String>();
-        File f =  new File("E:\\All Computer Science Materials\\Java " +
-                "240 Project\\PrinceFX\\src\\soundSet.txt");
+        File f =  new File("C:\\Users\\Public\\Documents\\PrinceFX\\src\\soundSet.txt");
         Scanner console = new Scanner(f);
         while(console.hasNext()) {
             String token = console.next();

@@ -10,8 +10,7 @@ public class makeImage {
     // This is the constructor.
     public makeImage() throws Exception{
         storedImage = new ArrayList<String>();
-        File f =  new File("E:\\All Computer Science Materials\\Java 240 Project" +
-                "\\PrinceFX\\src\\imageSet.txt");
+        File f =  new File("C:\\Users\\Public\\Documents\\PrinceFX\\src\\imageSet.txt");
         Scanner console = new Scanner(f);
         while(console.hasNext()) {
             String token = console.next();
