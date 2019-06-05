@@ -24,7 +24,7 @@ import javafx.scene.media.MediaView;
 
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-
+import javafx.scene.transform.Scale;
 import javafx.geometry.Insets;
 
 import javafx.application.Application;
@@ -93,7 +93,7 @@ public class Main extends Application {
         }
 
         Image image = new Image(new File("E:\\All Computer Science Materials\\" +
-                "Java 240 Project\\PrinceFX\\image\\" + picture.getImage(5) + ".png").toURI().toString());
+                "Java 240 Project\\PrinceFX\\image\\" + picture.getImage(6) + ".png").toURI().toString());
         //Setting the image view
         ImageView imageView = new ImageView(image);
 
@@ -109,8 +109,9 @@ public class Main extends Application {
         // All the buttons.
         Label labels = new Label();
         Button goBack = new Button("Go Back to Main");
-        // Button options = new Button("Options");
+        Button options = new Button("Options");
 
+        // This will add an option button.
         goBack.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
@@ -127,10 +128,22 @@ public class Main extends Application {
             }
         });
 
+        // This will lead to the option page.
+        options.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                // Creating the scene inside a event handler.
+                previous = scenePlay;
+                sceneOption = createOptionScene();
+                musicPlay.setVolume(currentVolume);
+                stageOne.setScene(sceneOption);
+            }
+        });
+
         // Button for first page.
-        HBox layoutPlaying = new HBox();
-        layoutPlaying.getChildren().addAll(labels, goBack);
-        layoutPlaying.setTranslateX(1350);
+        HBox layoutPlaying = new HBox(10);
+        layoutPlaying.getChildren().addAll(labels, options, goBack);
+        layoutPlaying.setTranslateX(70);
         layoutPlaying.setTranslateY(750);
 
 
@@ -160,14 +173,14 @@ public class Main extends Application {
         VBox identity = new VBox(10);
         identity.getChildren().addAll(name, age);
         identity.setStyle("-fx-font: 30 arial;");
-        identity.setTranslateX(60);
-        identity.setTranslateY(90);
+        identity.setTranslateX(100);
+        identity.setTranslateY(120);
 
         // Year
         Label year = new Label("Year: " + gameControl.getStats().get("YEAR") + " AD");
-        year.setStyle("-fx-font: 30 arial;");
-        year.setTranslateX(1250);
-        year.setTranslateY(90);
+        year.setStyle("-fx-font: 24 arial;");
+        year.setTranslateX(1240);
+        year.setTranslateY(120);
 
         // Personal Status
         Label wealth = new Label("Wealth: " + gameControl.getStats().get("WLTH"));
@@ -175,15 +188,15 @@ public class Main extends Application {
         Label health = new Label("Health: " + gameControl.getStats().get("HLTH"));
         VBox personalStatus = new VBox(80);
         personalStatus.getChildren().addAll(wealth, army, health);
-        personalStatus.setStyle("-fx-font: 40 arial;");
-        personalStatus.setTranslateX(30);
-        personalStatus.setTranslateY(300);
+        personalStatus.setStyle("-fx-font: 36 arial;");
+        personalStatus.setTranslateX(70);
+        personalStatus.setTranslateY(330);
 
         // Other Forces: clergy, nobility, commoners
-        HBox allForces = new HBox(120);
+        HBox allForces = new HBox(70);
         // Clergy status
         Label clergy = new Label("Clergy: ");
-        clergy.setStyle("-fx-font: 40 arial;");
+        clergy.setStyle("-fx-font: 36 arial;");
         Label clergyLoyalty = new Label("Loyalty: " + gameControl.getStats().get("CLG_LOY"));
         clergyLoyalty.setStyle("-fx-font: 24 arial;");
         Label clergyInfluence = new Label("Influence: " + gameControl.getStats().get("CLG_INF"));
@@ -213,8 +226,8 @@ public class Main extends Application {
 
         // Final grouping up process.
         allForces.getChildren().addAll(clergyGroup, nobilityGroup, commonersGroup);
-        allForces.setTranslateX(400);
-        allForces.setTranslateY(80);
+        allForces.setTranslateX(450);
+        allForces.setTranslateY(110);
         return new Group(identity, year, personalStatus, allForces);
     }
 
@@ -223,10 +236,10 @@ public class Main extends Application {
         Group allUnits = createAllUnits();
         // Printing the quest text
         Group story = new Group();
-        VBox allOptions = new VBox(15);
-        allOptions.setStyle("-fx-font: 22 arial;");
-        allOptions.setTranslateX(350);
-        allOptions.setTranslateY(420);
+        VBox allOptions = new VBox(10);
+        allOptions.setStyle("-fx-font: 20 arial;");
+        allOptions.setTranslateX(420);
+        allOptions.setTranslateY(510);
 
         // Storing all the indexes
         route = new HashMap<String, Integer>();
@@ -238,8 +251,8 @@ public class Main extends Application {
                     break;
                 } else {
                     String text = ((i + 1) + "." + event.getDecs()[i].getTxt());
-                    if (text.length() > 80) {
-                        text = text.substring(0, 80) + "-\n" + text.substring(80);
+                    if (text.length() > 70) {
+                        text = text.substring(0, 70) + "-\n" + text.substring(70);
                     }
                     route.put(text, i);
 
@@ -291,9 +304,9 @@ public class Main extends Application {
             txtLength = txtLength - para[i].length();
         }
         Label questLabel = new Label(quest);
-        questLabel.setStyle("-fx-font: 28 arial;");
-        questLabel.setTranslateX(350);
-        questLabel.setTranslateY(250);
+        questLabel.setStyle("-fx-font: 24 arial;");
+        questLabel.setTranslateX(420);
+        questLabel.setTranslateY(300);
         return questLabel;
     }
 
@@ -350,10 +363,13 @@ public class Main extends Application {
         String path = "E:\\All Computer Science Materials\\Java 240 Project\\PrinceFX\\Music\\"
                 + songs.getSong(1) + ".mp3";
         Media media = new Media(new File(path).toURI().toString());
-        musicPlay = new MediaPlayer(media);
-        mView.setMediaPlayer(musicPlay);
-        musicPlay.setCycleCount(MediaPlayer.INDEFINITE);
-        musicPlay.play();
+
+        if (previous == sceneStart) {
+            musicPlay = new MediaPlayer(media);
+            mView.setMediaPlayer(musicPlay);
+            musicPlay.setCycleCount(MediaPlayer.INDEFINITE);
+            musicPlay.play();
+        }
 
         // Volume Control
         volumeSlider.valueProperty().addListener(new InvalidationListener() {
@@ -392,16 +408,30 @@ public class Main extends Application {
         //Setting the preserve ratio of the image view
         imageView.setPreserveRatio(true);
 
-        Button goBack = new Button("Go Back to Main");
-        goBack.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-                musicPlay.stop();
-                sceneStart = createStartScene();
-                musicPlay.setVolume(currentVolume);
-                stageOne.setScene(sceneStart);
-            }
-        });
+        Button goBack = null;
+        if (previous == sceneStart) {
+            goBack = new Button("Go Back to Main");
+            goBack.setOnAction(new EventHandler<ActionEvent>() {
+                @Override
+                public void handle(ActionEvent event) {
+                    musicPlay.stop();
+                    sceneStart = createStartScene();
+                    musicPlay.setVolume(currentVolume);
+                    stageOne.setScene(sceneStart);
+                }
+            });
+        } else {
+            goBack = new Button("Go Back to Play");
+            goBack.setOnAction(new EventHandler<ActionEvent>() {
+                @Override
+                public void handle(ActionEvent event) {
+                    previous = null;
+                    scenePlay= createPlayingScene();
+                    musicPlay.setVolume(currentVolume);
+                    stageOne.setScene(scenePlay);
+                }
+            });
+        }
 
         // Button to the main page.
         HBox layoutOp = new HBox();
@@ -473,6 +503,7 @@ public class Main extends Application {
             @Override
             public void handle(ActionEvent event) {
                 // Creating the scene inside a event handler.
+                previous = sceneStart;
                 musicPlay.stop();
                 sceneOption = createOptionScene();
                 musicPlay.setVolume(currentVolume);
@@ -542,7 +573,7 @@ public class Main extends Application {
         sceneStart = createStartScene();
 
         stageOne.setScene(sceneStart);
-        stageOne.setTitle("Prince Game ver 6.1.5.a");
+        stageOne.setTitle("Prince Game ver 6.1.5.beta");
         stageOne.show();
     }
 
