@@ -6,7 +6,8 @@ import java.io.*;
 public class GameManager {
    //all the game stats that have a string name and number
    private Map <String,Integer> stats;
-   
+
+   //Events that are triggered when a game stat is at 0 or 100.
    private Map <String, Event> lossEvents;
    
    //player name to be chosen at the start of a new game
@@ -20,10 +21,11 @@ public class GameManager {
    
    //Contains strings of all stats that can trigger loss conditions.
    private Iterator<Map.Entry<String, Integer>> iter;
-   
+
+   // Event object that stores the current event in the game.
    public Event currentEvent;
 
-   //public boolean gameIsRunning;
+
    
    //constructor
    //requires name of player character at start of the new game
@@ -35,17 +37,13 @@ public class GameManager {
       stats = new HashMap<>();
       lossEvents = new HashMap<>();
       makeChains();
-      buildStatsMap();
-      buildLossMap();
+      buildStatsMap(); // Creates a HashMap for game stats, uses faction name as key and an int value.
+      buildLossMap(); // Creates a HashMap that stores events triggered by a loss condition as value and faction name as key.
       
 
-      //new game conditions
-
-      
-     // sets the first event
-      //setEvent();
    }
 
+   // Method used for setting the next event. Random object decides whether a chain or repeated event occurs.
    public void setEvent() {
       Random rng = new Random();
       int dice = rng.nextInt(99);
@@ -60,11 +58,14 @@ public class GameManager {
       }
    }
 
+   // Returns the current event.
    public Event getEvent() { 
       return currentEvent;
    }
+
 // if the current event is a chain event, it will take it in the direction it is supposed to go
 //else it will send to SetEvent and pick randomly
+
    public void nextEvent(int i) {
 
         //deletes the chain events for no duplicates      
@@ -216,12 +217,13 @@ public class GameManager {
       stats.put(target, newStat);
    }
 
+   // Increases in-game year and age.
    public void increaseYear() {
        stats.put("AGE", stats.get("AGE") + 1);
        stats.put("YEAR", stats.get("YEAR") + 1);
    }
 
-   // get rid of gameover field, check if currentEvent isLoss, if yes then print loss event and end loop
+   // Checks to see if certain game stats are at 0 or 100. If a loss condition has been met, it will trigger a loss event.
    public boolean isGameOver() {
           //Contains strings of all stats that can trigger loss conditions.
        Iterator<Map.Entry<String, Integer>> iter = stats.entrySet().iterator();
@@ -243,7 +245,8 @@ public class GameManager {
        }
     return false;
    }
-   
+
+
    private void makeChains() throws Exception {
       makeChainWitchHunt();
       crusade();
@@ -287,7 +290,8 @@ public class GameManager {
       currentEvent = tutorial.get(0);
       
    }
-   
+
+   // Makes HashMap where in-game stats are stored.
    private void buildStatsMap() {
 
        stats.put("CLG_LOY", 50);
@@ -304,6 +308,7 @@ public class GameManager {
 
    }
 
+   // Makes HashMap where losing events for each faction are stored.
    private void buildLossMap() throws Exception {
        ArrayList<Event> lossEventsStorage = new ArrayList<Event>();
        lossEventsStorage = loadEvents("C:\\Users\\Public\\Documents\\PrinceFX\\src\\sample\\loss events.txt");
