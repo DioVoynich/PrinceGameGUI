@@ -1,7 +1,7 @@
 T:crusade 0
 Year:Y
 Sit:The Pope has called for a Crusade to drive the Saracens from the Holy Land! Salvation will be assured for any who fight in God's Army. What say you? 
-DEUS VULT! God wills it!/CLG_LOY#20 NOB_LOY#20 COM_LOY#20 ARMY#100
+DEUS VULT! God wills it!/CLG_LOY#20 NOB_LOY#20 WLTH#100 ARMY#100
 It is too dangerous for me/CLG_LOY#-10
 *
 T:crusade 1  0
