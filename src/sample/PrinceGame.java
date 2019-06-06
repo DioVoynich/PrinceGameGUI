@@ -27,7 +27,7 @@ public class PrinceGame {
 
 
                     play(game, in, out);
-                    //game.newGame();
+
                 }
                 printScreen(game.currentEvent, game, out);
 
@@ -69,6 +69,7 @@ public class PrinceGame {
 
     }
 
+    // Prints a text-based GUI that shows game stats. This is used for testing.
     public static void printScreen(Event event, GameManager game, PrintStream out) {
         out.println("Prince "+game.getName()+"\t\t\t\t\t\t\tThe Prince\t\t\t\t\t\tAD: "+game.getStats().get("YEAR"));
         out.println("Age: "+ game.getStats().get("AGE"));
