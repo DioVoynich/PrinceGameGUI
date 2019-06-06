@@ -321,8 +321,8 @@ public class Main extends Application {
         musicPlay.play();
 
         //Creating an image
-        Image image = new Image(new File("E:\\All Computer Science Materials\\" +
-                "Java 240 Project\\PrinceFX\\image\\" + picture.getImage(3) + ".png").toURI().toString());
+        Image image = new Image(new File("C:\\Users\\Public\\Documents\\PrinceFX\\image\\"
+                + picture.getImage(3) + ".png").toURI().toString());
         //Setting the image view
         ImageView imageView = new ImageView(image);
 
@@ -573,7 +573,7 @@ public class Main extends Application {
         sceneStart = createStartScene();
 
         stageOne.setScene(sceneStart);
-        stageOne.setTitle("Prince Game ver 6.1.5.beta");
+        stageOne.setTitle("Prince Game ver 6.1.6.");
         stageOne.show();
     }
 
