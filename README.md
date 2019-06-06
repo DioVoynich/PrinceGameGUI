@@ -1,6 +1,16 @@
-# PrinceGameGUI
-First Try.
+# Prince Game GUI Version
+# Whatcom Community College CS 240
+# 6/6/2019
 
-This is the GUI system for Prince Game project. It will not run alone. It's main purpose is to move on from console based
-game to graphic based game. The GUI will provide menu selection, including new game, loading, option, creding, and quit.
+# Creators
+  David Ouyang - Art/GUI Director
+  JAMES W KAHLE - Game Director
+  RICARDO RAMIREZ-GUERRERO - Quest Designer
+  Jason Li - Level Designer
+  Jacky Mendoza - Sponsor/2D Artist
+
+# Description
+
+This is a strategy game created by Prince Game Group for class project. It uses JavaFX to run. In this game, the players will be ruling  
+their kingdoms as being the princes. The game will make the players to choose variety of options; 
 
