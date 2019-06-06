@@ -28,7 +28,12 @@ JavaFX 11 <br />
 5. Open Intellij. At this point, the game will not run, unless you already installed JavaFX jars.
 6. Go to File -> Project Structure -> Project, under Project SDK, choose the right SDK. Then, under Project language level, <br />
 select "11 -Local Variable Syntax for lambda parameters." <br />
-
+7. In the same window, select Global Libraries. <br />
+8. In the white part in the middle, click the plus sign, then select Java. This will allow the users to import the JavaFx library to their IntelliJs. <br />
+9. Go to this directory C:\Users\Public\Documents\PrinceFX\javafx-sdk-12.0.1\lib and select all the jar files. (.jar) <br />
+10. Then, click Apply and Ok. <br />
+11. This should set up everything. Enjoy! <br />
+ 
 
 
 
