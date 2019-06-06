@@ -1,6 +1,6 @@
 # Prince Game GUI Version
-Whatcom Community College CS 240
-6/6/2019
+Whatcom Community College CS 240 <br />
+6/6/2019 <br />
 
 # Creators
 David Ouyang - Art/GUI Director <br />
