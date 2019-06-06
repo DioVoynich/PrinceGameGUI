@@ -1,0 +1,181 @@
+T:crusade 0
+Year:Y
+Sit:The Pope has called for a Crusade to drive the Saracens from the Holy Land! Salvation will be assured for any who fight in God's Army. What say you? 
+DEUS VULT! God wills it!/CLG_LOY#20 NOB_LOY#20 WLTH#100 ARMY#100
+It is too dangerous for me/CLG_LOY#-10
+*
+T:crusade 1  0
+Year:Y
+Sit:You spend the next year gathering wealth and men. Knights, pilgrims, and priests take up the cross at the promise of salvation. Now the only question is how will this great host make its way to Jerusalem.
+We will go by sea through Venice/CLG_LOY#0
+We will go by land through Hungary/CLG_LOY#0
+*
+T:crusade 2 venice 1
+Year:N
+Sit:As you arrive at the serene city of Venice, you ask for an audience with the Doge to discuss transport. "We can take you," he says, "but it will cost you a great expense". 
+That is fine, I will pay/WLTH#-50
+Surely you could lend a hand to an Army of God?/CLG_LOY#0
+*
+T:crusade 3 Venice 2
+Year:N
+Sit:"We will take you brave crusaders, but you and your men must swear to follow our orders when we arrive."
+On second thought I will just pay/WLTH#-50
+We swear to follow you/CLG_LOY#0
+*
+T:crusade 4 Venice 2 no
+Year:N
+Sit:Your men and the Venetians are loaded onto a great fleet of galleys and you set sail into the ardiatic sea. Several weeks pass as the fleet makes it's way towards the target of our crusade. You see a city come into view on the horizon, you recognise it as the Great Byzantine city of Constantinople. 
+Why are we stopping here, Doge?/CLG_LOY#0
+*
+T:crusade 5 Venice 3 yes
+Year:N
+Sit:Your men and the venetians are loaded onto a great fleet of galleys and you set sail into the ardiatic sea. Several weeks pass as the fleet makes it's way towards the target of our crusade. You see a city come into view on the horizon, you recognise it as the Great Byzantine city of Constantinople. 
+Why are we stopping here, Doge?/CLG_LOY#0
+*
+T:crusade 6 Venice 4
+Year:N
+Sit:"Byzantium has debts that need to be paid, we are here to take what is owed to us. You are going to help us lay siege to Constantinople, or we will not take you any farther to the Holy Land."
+I will do no such thing, we will not fight christians/CLG_LOY#0
+Well I need you to take me/ARMY#-20
+*
+T:crusade 7 Venice 5
+Year:N
+Sit:"Byzantium has debts that need to be paid, we are here to take what is owed to us. You are going to help us lay siege to Constantinople, or we will not take you any farther to the Holy Land. You swore to follow our commands for a free ride, remember"
+I will do no such thing, take your money/WLTH#-90
+I did swear to you/ARMY#-20 CLG_LOY#-20 COM_LOY#-20 NOB_LOY#-20
+*
+T:crusade 8 Venice 6 7 
+Year:Y
+Sit:Your men are uneasy at the idea of fighting the Byzantines; weren't they the very empire we went to the holy land to fight for. some men desert, but the rest stand by you regardless. The emporer did not take kindly to the Venetians demanding payment at the head of the army, and the residents of Constantinople have prepared for a siege.
+A siege it is/CLG_LOY#0
+*
+T:crusade 9 Venice 8
+Year:N
+Sit:After a long year of sieging the thick theodosian walls of Constantinople, a piece of the wall has finally collapsed, leaving a small entry into the city. Your crusaders have been chosen to lead the charge as the Venetians attack the Harbor.
+Once more unto the breach!/ARMY#-50
+While they are distracted, we will betray the Venetians/ARMY#-50
+*
+T:crusade 10 venice constantinople assault 9
+Year:N
+Sit: You personally lead the charge of your crusaders towards the walls of Constantinople. Arrows rain down on you and your men, you are stuck by arrow in the leg, but the attack carries on without you. The fighting was fierce, but the crusaders and Venetians overwhelmed the Byzantine defenses.
+We won, but at what cost/HLTH#-30 ARMY#-20
+*
+T:crusade 11 venice 10
+Year:N
+Sit:The victorious Venetians take to looting and pillaging the city. As you limp towards the Venetian Doge, you see his soldiers carrying away crates of silver and gold towards the boats. "We have collected our debts" the Doge says "we will be returning to Venice now". 
+We fought for you so we could make it to the Holy Land, you will take us there! /CLG_LOY#0
+I will go with you, I am tired of this crusade/CLG_LOY#0
+*
+T:crusade 12 venice 11
+Year:N
+Sit:"You are in no position to bargain, little prince, we are done here. I suggest you come with us unless you want to walk home on that crippled leg."
+You won't leave this city alive!/CLG_LOY#0
+I will go with you/CLG_LOY#0
+*
+T:crusade 13 12
+Year:N
+Sit:You draw your sword and thrust it into the treacherous Doge, killing him as he calls for his guards. Your outnumbered crusaders fight valiantly, but in the end you and your men die fighting on the streets of Constantinople. The crusade was a complete failure, your involvement in the Venetian betrayal left a permanent stain on the name of your family. 
+What have we done/HLTH#-100
+*
+T:crusade 14 11/12 end
+Year:Y
+Sit:You and what remains of your army return home, demoralized. You choose not to speak of what happened, but the word of your involvement in the Venetian Betrayal still gets out. Your people think of you as a disgrace.
+God willed it/CLG_LOY#-20 NOB_LOY#-20 COM_LOY#-20
+*
+T:crusade 15 9
+Year:N
+Sit:As the Venetians assault the harbor, you attack them from the rear. In the confusion, the encircled Venetians route from the battlefield. You come to the walls of Constantinople under a flag of peace. As the defenders had witnessed you attack on the Venetians, they accept your peace, but they do not accept your wish to speak with the Emporer about continuing the Crusade.
+Then we will return home /ARMY#0
+*
+T:crusade 16 15 end
+Year:Y
+Sit:Your soldiers are unhappy to be giving up the cross, but with their dwindled numbers they understand why. They return to their homes and sing praises about their heroic defense of Constantinople, but the truth is sure to come out.
+May the Lord have mercy/CLG_LOY#-10 NOB_LOY#-10 COM_LOY#-10
+*
+T:crusade 17 6/7
+Year:N
+Sit:The Venetians sail away in disgrace, it appears that without your forces they had no intention of fighting the Byzantines. But the matter remains that you are without transport. You will need to speak with the Byzantine Emporer in order to continue the crusade.
+An Audience it is/CLG_LOY#0
+*
+T:crusade 18 Hungary 1
+Year:N
+Sit:As your Crusaders march on, your rations begin to dwindle. You had anticipated to forage and purchase suplies along the way, but the lands of Hungary seem to have been rendered barren, the fields bare no food and the villagers will give no food. They say that everything they had had already been taken by other crusaders who have already traveled through here. Without a plan, your men will soon starve. 
+We must tighten our belts and push on/ARMY#-20
+Raid the local villages. They must be hiding some food somewhere/COM_LOY#-10 CLG_LOY#-10
+*
+T:crusade 19 Hungary 18
+Year:N
+Sit:Your men dislike the lack of supplies. Some desert to find their own food, some have been found stealing more than their alloted rations. It is clear that this situation cannot continue.  
+We have to take what we can by force/COM_LOY#-10 CLG_LOY#-10
+Do not harm the peasants, we push on/ARMY#-30
+*
+T:crusade 20 Hungary 18/19
+Year:N
+Sit:As you split your forces to pillage the countryside, a host of Hungarian Knights arrives on the horizon. They had been shadowing you for some time now, and your act of aggression has provoked them to attack.
+Call back the foragers, we need everyone here now!/ARMY#-20
+I will fight them myself!/ARMY#-15 HLTH#-50
+*
+T:crusade 21 Hungary 20
+Year:Y
+Sit:The fighting is intense, and you might have broken if the foragers had not arrived. Luckily the Hungarians left behind their baggage train in the retreat, and the supplies will be enough to push on until Constantinople.
+Finally some good news/CLG_LOY#0
+*
+T:crusade 22 Hungary 20
+Year:Y
+Sit:The charge of the Hungarians was intercepted by your personal vanguard. The fighting was intense, and you knocked from your horse and broke several bones, but your lines held. Luckily the Hungarians left behind their baggage train in the retreat, and the supplies will be enough to push on until Constantinople. 
+I small price to pay for salvation/CLG_LOY#0
+*
+T:crusade 23 Hungary 19/21/22
+Year:N
+Sit: The journey to Constantinople was long, but we have finally made it. Now is the time to get an audience with the Emporer for passage through his lands to the Holy Land.
+An audience it is/CLG_LOY#0
+*
+T:crusade 24 Audience with the Emporer 17/23
+Year:N
+Sit:"You are not the first Crusader Army to make it to me" said the Emporer of Byzantium. "Many others have already come through and have taken the same oath that I give you now. I will give you free passage through my lands and access to supplies throughout my realm, and in return you will reconquer my lost territory in the Holy Land, and should you take any land, it will be returned to me and me alone."
+I accept/CLG_LOY#0
+I accept (wink wink)/CLG_LOY#0
+*
+T:crusade 25 emporer 24
+Year:Y
+Sit:"Good, from what I have heard, the armies already in the Levant have had quite the success so far. They have conquered a line of territory accross Asia Minor and have open supply lines directly to the Holy Land. I beleive they should be sieging Jerusalem as we speak."
+Then I must go/CLG_LOY#0
+*
+T:crusade 26 25
+Year:Y
+Sit: The march from Constantinople to Jerusalem is relatively uneventful. You find several crusader strongholds that along the way that keep you supplied and rested.
+Nothing can stop the Army of God/CLG_LOY#0
+*
+T:crusade 27 26
+Year:N
+Sit:On your way to Jerusalem, you stop to make a pilgrimage to the Sea of Galilee. You are taken in by its signifigance, and its cooling waters look wonderfully tempting on such a hot day.
+I must swim in its waters!/CLG_LOY#0
+Beautiful, but we really need to push on/CLG_LOY#0
+*
+T:crusade 28 27 end
+Year:N
+Sit:You run towards the water and rush in without bothering to take off your armor. The heavy metal drags you to the bottom before you can even think. You fight to swim up, but there is no overpowering the force dragging you down. You drown in the Sea of Galilee. Without you, the crusaders return home.
+God Willed it/HLTH#-100
+*
+T:crusade 29 27
+Year:N
+Sit: Your forces arrive at the Siege of Jerusalem. Surrounding the city is a host of knights from across the christian world. Your men kneel down in prayer before the Holy City. You are lucky enough to have arrived before a great assault on the city has been planned.
+I will be the first over the walls/HLTH#-25 ARMY#-20
+I cannot risk myself, the men will assault without me/ARMY#-20 CLG_LOY#-5
+*
+T:crusade 30 29
+Year:N
+Sit:From multiple sides of the city at once, crusaders scaled the walls of Jerusalem to retake the city from the Saracens. Your forces fought bravely and honorably from the walls, to the streets, to the last strongholds of Saracen occupation. As night fell on the city, Christian crosses could be seen raised above all the city's quarters. 
+DEUS VULT! DEUS IN REGINIUM!/CLG_LOY#100 COM_LOY#100 NOB_LOY#100
+*
+T:crusade 31 30
+Year:N
+Sit:With the battle won, you see your own crusaders pillaging the nearby houses and slaughtering the inhabitants indiscriminately.  
+Stop!Have you no Christian decency! these people are under my protection!/NOB_LOY#-10
+Send those Heathens to our Lord and Savior, and bring me whatever you find!/WLTH#40
+*
+T:crusade 32 31
+Year:Y
+Sit:Widespread looting and atrocities continued throughout the city, even as some crusader lords attempted to hold back the pillaging of the holy city. As the violence settled, the larger Crusader kings began debating among themselves on who would receive the title of the King of Jerusalem, and who would stay to defend the city from attempts to retake it. You however, had accomplished your mission and headed home with your head held high, a true Crusader.
+God Willed it/CLG_LOY#0
+*
