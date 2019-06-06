@@ -2,31 +2,16 @@
 package sample;
 import java.util.*;
 import java.io.*;
-
+//The game manager is the object that keeps track of all of the events in the game and the stats
 public class GameManager {
-   //all the game stats that have a string name and number
    private Map <String,Integer> stats;
-   
    private Map <String, Event> lossEvents;
-   
-   //player name to be chosen at the start of a new game
    private String name;
-   
-   //all potential events
    private ArrayList<Event> eventObjs = new ArrayList<Event>();
-   
-   //private ArrayList<Event> lossEventsStorage = new ArrayList<Events>();
    private ArrayList<Event> chainEvents;
-   
-   //Contains strings of all stats that can trigger loss conditions.
    private Iterator<Map.Entry<String, Integer>> iter;
-   
    public Event currentEvent;
-
-   //public boolean gameIsRunning;
-   
-   //constructor
-   //requires name of player character at start of the new game
+   //initiats the game manager with all of the event objects and the default stats
    public GameManager() throws Exception {
       this.name = "Harry";
       eventObjs = new ArrayList<Event>();
@@ -37,15 +22,8 @@ public class GameManager {
       makeChains();
       buildStatsMap();
       buildLossMap();
-      
-
-      //new game conditions
-
-      
-     // sets the first event
-      //setEvent();
    }
-
+   //sets the next event that will during in the game
    public void setEvent() {
       Random rng = new Random();
       int dice = rng.nextInt(99);
@@ -59,11 +37,12 @@ public class GameManager {
          currentEvent = eventObjs.get(rng.nextInt(eventObjs.size()));
       }
    }
-
+   //returns the current event 
    public Event getEvent() { 
       return currentEvent;
    }
-// if the current event is a chain event, it will take it in the direction it is supposed to go
+
+ // if the current event is a chain event, it will take it in the direction it is supposed to go
 //else it will send to SetEvent and pick randomly
    public void nextEvent(int i) {
 
@@ -92,7 +71,7 @@ public class GameManager {
 
    }
 
-
+   //takes in the file in the parameter and loads the event into the gamemanager
     public ArrayList loadEvents(String fileName) throws FileNotFoundException{
        ArrayList<Event> eventList = new ArrayList<>();
         File inputFile = new File(fileName);
@@ -101,12 +80,7 @@ public class GameManager {
             System.exit(1);
         }
         Scanner input = new Scanner(inputFile);
-        // Scanner input = new Scanner(new File("situation.txt"));
         String currentEventStr = "";
-        //array list with the events
-
-        //Set<String> events = new HashSet<String>(String.CASE_INSENSITIVE_ORDER);
-        //T refers to title
         String title = "";
         Boolean year = null;
         String situation = null;
@@ -115,12 +89,7 @@ public class GameManager {
         int lineNum = 1;
         while(input.hasNextLine()){
             String currentLine = input.nextLine();
-            //finds the title string find out what to do with it
-            //sep is the separater : index
             if(lineNum<=3){
-                //gets the situation string which is the string the user will see but I didn't see where to plug it in
-                //maybe we should add a new field to the event class for the display string
-                //nevermind I found were to put it
                 int sep = currentLine.indexOf(":");
                 String str = currentLine.substring(sep+1);
                 if(lineNum == 2){
@@ -138,7 +107,6 @@ public class GameManager {
             }else if(currentLine.contains("*")){
                 //creates the event with all of the variables found
                 //adds the current event to the list
-
                 Event currEvent = new Event(year, situation, decisions, title);
                 eventList.add(currEvent);
                 year = false;
@@ -148,21 +116,15 @@ public class GameManager {
                 lineNum = 1;
                 dIndex = 0;
             }else if(lineNum > 3){
-                //sep is the separater )
-                //int sep = input.indexOf(")");
-                //String idLetter = input.substring(0,sep);
                 String str = currentLine;
                 Effect[] effects=new Effect[4];
                 int index =0;
                 //separates the string into an array with the separation taking place in every "|"
                 //essentialy gets the text for the decision and the effects
                 String[] firstSplit = str.split("/");
-                //separates the sequence with the key for the stat and the value
-                //here it splits the effect keys with their corresponding value
                 String[] secondSplit = firstSplit[1].toString().split(" ");
                 for(int i = 0; i < secondSplit.length; i++){
                     String currentKeyAndStat = secondSplit[i].toString();
-                    //splits the effect key and value from the string and builds the effect object
                     String[] keyAndStat = currentKeyAndStat.split("#");
                     String key = keyAndStat[0].toString();
                     String statStr = keyAndStat[1].toString();
@@ -172,7 +134,6 @@ public class GameManager {
                         statStr = statStr.substring(signIndex);
                         stat = Integer.parseInt(statStr);
                         stat*=-1;
-                        //builds the effect with the variables
                     }else{
                         stat = Integer.parseInt(statStr);
                     }
@@ -243,13 +204,13 @@ public class GameManager {
        }
     return false;
    }
-   
+   //loads all of the chained evendts
    private void makeChains() throws Exception {
       makeChainWitchHunt();
       crusade();
       tutorial();
    }
-   
+   //loads the witch hunt
    private void makeChainWitchHunt()throws Exception {
       ArrayList<Event> witchHunt = new ArrayList<Event>();
       witchHunt = loadEvents("C:\\Users\\Public\\Documents\\PrinceFX\\src\\sample\\witch hunt.txt");
@@ -277,6 +238,7 @@ public class GameManager {
       
       chainEvents.add(witchHunt.get(0));
    }
+   //loads the tutorial chained event
    private void tutorial() throws Exception {
       ArrayList<Event> tutorial = new ArrayList<Event>();
       tutorial = loadEvents("C:\\Users\\Public\\Documents\\PrinceFX\\src\\sample\\tutorial.txt");
@@ -287,9 +249,8 @@ public class GameManager {
       currentEvent = tutorial.get(0);
       
    }
-   
+   //builds the default stats into the map
    private void buildStatsMap() {
-
        stats.put("CLG_LOY", 50);
        stats.put("CLG_INF", 50);
        stats.put("NOB_LOY", 50);
@@ -303,7 +264,8 @@ public class GameManager {
        stats.put("AGE", 20);
 
    }
-
+   
+   //builds the map with the loss conditions
    private void buildLossMap() throws Exception {
        ArrayList<Event> lossEventsStorage = new ArrayList<Event>();
        lossEventsStorage = loadEvents("C:\\Users\\Public\\Documents\\PrinceFX\\src\\sample\\loss events.txt");
@@ -322,7 +284,7 @@ public class GameManager {
        lossEvents.put("AGE", lossEventsStorage.get(9));
    }
 
-   // Crusade update
+   //loads crusade chain event
    private void crusade()throws Exception {
        ArrayList<Event> crusade = new ArrayList<Event>();
        crusade = loadEvents("C:\\Users\\Public\\Documents\\PrinceFX\\src\\sample\\crusade.txt");
@@ -374,7 +336,7 @@ public class GameManager {
        chainEvents.add(crusade.get(0));
    }
 
-
+   //creates a new game with reset values
    public void newGame() throws Exception {
       stats.clear();
       buildStatsMap();
