@@ -17,8 +17,6 @@ and being a good prince, and live as long as possible. <br />
 <br />
 
 There are three types of foce factors, clergy, nobility, and commoners. The options made by the players will affect these three's <br />
-influence and loyalty scales. If either one of the force's influence reaches to 100 or the loyalty reaches to 0, the game <br />
-will be over at that point. Besides these, player itself also has three stats, wealth, health, and army. If one of them becomes 0, <br />
-the game will be also over. 
+
 
 
