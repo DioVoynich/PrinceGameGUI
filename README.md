@@ -24,7 +24,10 @@ JavaFX 11 <br />
 1. Go to this directory in your windows laptop -> C:\Users\Public\Documents <br />
 2. In there, make a file and name it "PrinceFX." <br />
 3. Be sure to click "Branch" tab and select "FinalVersion." Then, download the files to the inside of PrinceFX folder. <br />
-4. (Skippable) If you don't have Intellij, visit to this link: https://www.jetbrains.com/idea/ and download Intellij. <br />
+4. (Skippable) If you don't have Intellij yet, visit this link: https://www.jetbrains.com/idea/ and download Intellij. <br />
+5. Open Intellij. At this point, the game will not run, unless you already installed JavaFX jars.
+6. Go to File -> Project Structure -> Project, under Project SDK, choose the right SDK. Then, under Project language level, <br />
+select "11 -Local Variable Syntax for lambda parameters." <br />
 
 
 
