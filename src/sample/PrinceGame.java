@@ -37,19 +37,18 @@ public class PrinceGame {
         }
     }
 
-    // Take in input from user (1-4)
+    // Launches the game and displays it in the console. The console representation is used for testing.
     public static void play (GameManager game, Scanner in, PrintStream out) {
-        //WIP
-        
-//        game.setEvent();
-        Decision[] options = game.currentEvent.getDecs();
+
+        Decision[] options = game.currentEvent.getDecs(); //Retrieves decisions from an event
         printScreen(game.currentEvent, game, out);
         String input = in.next();
         int choice = Integer.parseInt(input);
-        Effect[] update = options[choice - 1].getEffs(); // NOTE: NullPointerException if player chooses option that does't exist
-        // for loop applying stats updates
+        Effect[] update = options[choice - 1].getEffs(); //Retrieves effects from a decision
+
+        // Applies stats update each year/event
         for (int i = 0; i < update.length; i++) {
-            if (update[i] == null) { //rough handling of null exceptions (change later)
+            if (update[i] == null) {
                 break;
             }
             else {
@@ -58,6 +57,7 @@ public class PrinceGame {
                 game.updateValue(faction, statChange);
             }
         }
+        // increases in-game year if the current event does so.
         if (game.currentEvent.increasesYear()) {
             game.increaseYear();
         }
